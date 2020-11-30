@@ -12,13 +12,16 @@ import {
     Card,
     Text,
     CardItem,
-    Thumbnail
+    Thumbnail,
+    List,
+    ListItem
 } from 'native-base';
+import SplashScreen from 'react-native-splash-screen';
 
 export default class Main extends React.Component {
     render() {
         return (
-            <Container style={{ backgroundColor: "#FCC4C3" }}>
+            <Container style={{ backgroundColor: "#05dee2" }}>
                 <Header noLeft transparent>
                     <Left style={{ flex: 1, margin: 10 }}>
                         <Text
@@ -65,26 +68,32 @@ export default class Main extends React.Component {
                                 </Body>
                             </Left>
                         </CardItem>
-                        <CardItem style={{ borderRadius: 10 }}>
-                            <Body>
-                                <Text>
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                    when an unknown printer took a galley of type and scrambled it to make a
-                                    type specimen book. It has survived not only five centuries, but also the
-                                    leap into electronic typesetting, remaining essentially unchanged.
-                                </Text>
-                            </Body>
-                        </CardItem>
+                        <List>
+                            <ListItem itemDivider>
+                                <Text>Description</Text>
+                            </ListItem>
+                            <ListItem>
+                                <Text>Aaron Bennet</Text>
+                            </ListItem>
+                            <ListItem>
+                                <Text>Ali Connors</Text>
+                            </ListItem>
+                            <ListItem itemDivider>
+                                <Text>Des</Text>
+                            </ListItem>
+                            <ListItem>
+                                <Text>Bradley Horowitz</Text>
+                            </ListItem>
+                        </List>
                         <CardItem style={{ borderRadius: 10 }}>
                             <Left style={{ flex: 1 }}>
-                                <Button rounded style={{ backgroundColor: "#FCC4C3", elevation: 0 }}>
-                                    <Text style={{ color: "#FFFFFF" }}>I Love Work</Text>
+                                <Button rounded style={{ backgroundColor: "#05dee2", elevation: 0 }}>
+                                    <Text style={{ color: "#FFFFFF" }}>Let's Clean</Text>
                                 </Button>
                             </Left>
                             <Right style={{ flex: 1 }}>
-                                <Button rounded style={{ backgroundColor: "#FCC4C3", elevation: 0 }}>
-                                    <Text style={{ color: "#FFFFFF" }}>25 Worker</Text>
+                                <Button rounded style={{ backgroundColor: "#05dee2", elevation: 0 }}>
+                                    <Text style={{ color: "#FFFFFF" }}>25 Cleaner</Text>
                                 </Button>
                             </Right>
                         </CardItem>
@@ -92,5 +101,11 @@ export default class Main extends React.Component {
                 </Content>
             </Container>
         );
+    }
+
+    componentDidMount() {
+        // do stuff while splash screen is shown
+        // After having done stuff (such as async tasks) hide the splash screen
+        SplashScreen.hide();
     }
 }

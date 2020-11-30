@@ -17,10 +17,25 @@ import {
     Card,
     CardItem,
     Icon,
-    H3
+    H3,
+    Picker
 } from 'native-base';
 
 export default class SignUp extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            selected2: undefined
+        }
+    }
+
+    onValueChange2(value) {
+        this.setState({
+            selected2: value
+        })
+    }
+
     render() {
         return (
             <Container style={{ backgroundColor: "#FCC4C3" }}>
@@ -49,23 +64,18 @@ export default class SignUp extends React.Component {
                         <CardItem style={{ borderRadius: 10, padding: 10 }}>
                             <Body style={{ padding: 10 }}>
                                 <Item floatingLabel>
-                                    <Label>First Name</Label>
-                                    <Input />
-                                </Item>
-                                <Item floatingLabel>
-                                    <Label>Last Name</Label>
-                                    <Input />
-                                </Item>
-                                <Item floatingLabel>
+                                    <Icon type="MaterialIcons" name='email' />
                                     <Label>Email</Label>
+                                    <Icon name='information-circle' />
                                     <Input />
                                 </Item>
-                                <Item floatingLabel disabled>
+                                {/* <Item floatingLabel disabled>
                                     <Label style={{ color: "gray" }}>Dingalan</Label>
                                     <Input disabled />
-                                    <Icon name='information-circle' />
-                                </Item>
+                                    <Icon name='location' />
+                                </Item> */}
                                 <Item floatingLabel>
+                                    <Icon name='lock-closed' />
                                     <Label>Password</Label>
                                     <Input />
                                 </Item>
@@ -73,7 +83,7 @@ export default class SignUp extends React.Component {
                                     {'\n'}
                                 </Text>
                                 <Button rounded block style={{ backgroundColor: "#FCC4C3", elevation: 0 }}>
-                                    <H3 style={{ color: "#FFFFFF" }}>Sign Up</H3>
+                                    <H3 style={{ color: "#FFFFFF" }}>Let's Clean</H3>
                                 </Button>
                             </Body>
                         </CardItem>
