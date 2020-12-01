@@ -2,13 +2,15 @@
  * @format
  */
 import { Navigation } from 'react-native-navigation';
-import Main from './src/overview/Main';
+import OverView from './src/overview/OverView';
 import SignUp from './src/signup/SignUp';
 import Login from './src/login/Login';
+import SetupProfile from './src/setup-profile/SetupProfile';
 
-Navigation.registerComponent('Main', () => Main);
+Navigation.registerComponent('OverView', () => OverView);
 Navigation.registerComponent('SignUp', () => SignUp);
 Navigation.registerComponent('Login', () => Login);
+Navigation.registerComponent('SetupProfile', () => SetupProfile);
 
 Navigation.events().registerAppLaunchedListener(async () => {
     Navigation.setRoot({
@@ -17,7 +19,7 @@ Navigation.events().registerAppLaunchedListener(async () => {
                 children: [
                     {
                         component: {
-                            name: 'Main'
+                            name: 'OverView'
                         }
                     }
                 ]

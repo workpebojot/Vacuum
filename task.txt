@@ -1,0 +1,2 @@
+1. Create privacy guideline and add logo to sign up.
+2. App should be english

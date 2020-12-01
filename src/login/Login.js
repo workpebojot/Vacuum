@@ -11,19 +11,21 @@ import {
     Right,
     Body,
     Text,
-    Form,
     Item,
     Input,
     Label,
     Card,
     CardItem,
-    H3
+    H3,
+    Icon,
+    Footer,
+    FooterTab
 } from 'native-base';
 
 export default class SignUp extends React.Component {
     render() {
         return (
-            <Container style={{ backgroundColor: "#FCC4C3" }}>
+            <Container style={{ backgroundColor: "#fcc4c3" }}>
                 <Header noLeft transparent>
                     <Left style={{ flex: 1, margin: 10 }}>
                         <Text
@@ -41,7 +43,14 @@ export default class SignUp extends React.Component {
                         </Button>
                     </Body>
                     <Right style={{ flex: 1, margin: 10 }}>
-                        <Text style={{ color: "white" }}>Vacuum</Text>
+                        <Text
+                            style={{ color: "white" }}
+                            onPress={
+                                () => Navigation.pop(this.props.componentId)
+                            }
+                        >
+                            Vacuum
+                            </Text>
                     </Right>
                 </Header>
                 <Content padder>
@@ -49,10 +58,12 @@ export default class SignUp extends React.Component {
                         <CardItem style={{ borderRadius: 10, padding: 10 }}>
                             <Body style={{ padding: 10 }}>
                                 <Item floatingLabel>
+                                    <Icon type="MaterialIcons" name='email' />
                                     <Label>Email</Label>
                                     <Input />
                                 </Item>
                                 <Item floatingLabel>
+                                    <Icon name='lock-closed' />
                                     <Label>Password</Label>
                                     <Input />
                                 </Item>
@@ -66,6 +77,15 @@ export default class SignUp extends React.Component {
                         </CardItem>
                     </Card>
                 </Content>
+                <Footer>
+                    <FooterTab style={{backgroundColor: "#fcc4c3", borderWidth: 1, borderColor: "#fcc4c3"}}>
+                        <Button transparent block style={{ elevation: 0 }}>
+                            <Text style={{ color: "#ffffff" }}>
+                                Vacuum Version 1.0.0 2020-2021
+                                    </Text>
+                        </Button>
+                    </FooterTab>
+                </Footer>
             </Container>
         );
     }

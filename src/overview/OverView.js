@@ -18,7 +18,7 @@ import {
 } from 'native-base';
 import SplashScreen from 'react-native-splash-screen';
 
-export default class Main extends React.Component {
+export default class OverView extends React.Component {
     render() {
         return (
             <Container style={{ backgroundColor: "#05dee2" }}>
@@ -99,7 +99,7 @@ export default class Main extends React.Component {
                         </CardItem>
                     </Card>
                 </Content>
-            </Container>
+            </Container >
         );
     }
 

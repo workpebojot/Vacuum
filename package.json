@@ -13,6 +13,7 @@
     "native-base": "^2.13.14",
     "react": "16.13.1",
     "react-native": "0.63.3",
+    "react-native-dialogs": "^1.1.1",
     "react-native-navigation": "^7.4.0",
     "react-native-splash-screen": "^3.2.0"
   },
