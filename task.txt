@@ -1,2 +1,2 @@
-1. Create privacy guideline and add logo to sign up.
-2. App should be english
+1. Customize setup form (e.g. Picker component)
+2. Access file system

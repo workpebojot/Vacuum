@@ -27,7 +27,7 @@ import { Image } from 'react-native';
 export default class SignUp extends React.Component {
     render() {
         return (
-            <Container style={{ backgroundColor: "#FCC4C3" }}>
+            <Container style={{ backgroundColor: "#fcc4c3" }}>
                 <Header noLeft transparent>
                     <Left style={{ flex: 1, margin: 10 }}>
                         <Text
@@ -57,7 +57,7 @@ export default class SignUp extends React.Component {
                 </Header>
                 <Content padder>
                     <Image
-                        source={{ uri: "https://user-images.githubusercontent.com/38276345/100709984-ff62e580-33e9-11eb-94e2-3ad0c6015f1f.png" }}
+                        source={require('../assets/images/vacuum-cover.png')}
                         style={{ height: 250, width: null, flex: 1, padding: 10, marginTop: -50 }}
                     />
                     <Card transparent style={{ borderRadius: 10, padding: 5, marginTop: -10 }}>
@@ -235,8 +235,8 @@ export default class SignUp extends React.Component {
                         There are two topics, one is data storage,
                         and the second is data processing, while we talk
                         about privacy, as I said. This is the details I
-                        get from you in the data collection: <b>Name</b>, <b>location</b>,
-                        <b>email</b> and <b>phone number</b>. Instead of paying online, 
+                        get from you in the data collection: <b>Name</b>, <b>Location</b>,
+                        <b>Email</b> and <b>Phone Number</b>. Instead of paying online, 
                         you pay locally. We have paid membership. But I do not 
                         force you to pay unless the system requires it.
                         <br><br>
