@@ -22,7 +22,8 @@ import {
     FooterTab
 } from 'native-base';
 import DialogAndroid from 'react-native-dialogs';
-import { Image } from 'react-native';
+import { Image, TouchableOpacity, Pressable } from 'react-native';
+import { Col, Row, Grid } from 'react-native-easy-grid';
 
 export default class SignUp extends React.Component {
     render() {
@@ -30,14 +31,15 @@ export default class SignUp extends React.Component {
             <Container style={{ backgroundColor: "#fcc4c3" }}>
                 <Header noLeft transparent>
                     <Left style={{ flex: 1, margin: 10 }}>
-                        <Text
-                            style={{ color: "white" }}
+                        <Pressable
+                            android_ripple={{ color: "#fcc4c3", borderless: true }}
                             onPress={
                                 () => Navigation.pop(this.props.componentId)
-                            }
-                        >
-                            Back
+                            }>
+                            <Text style={{ color: "white" }}>
+                                Back
                         </Text>
+                        </Pressable>
                     </Left>
                     <Body style={{ flex: 1 }}>
                         <Button transparent block>
@@ -45,72 +47,80 @@ export default class SignUp extends React.Component {
                         </Button>
                     </Body>
                     <Right style={{ flex: 1, margin: 10 }}>
-                        <Text
-                            style={{ color: "white" }}
+                        <Pressable
+                            android_ripple={{ color: "#05dee2", borderless: true }}
                             onPress={
                                 () => Navigation.pop(this.props.componentId)
-                            }
-                        >
-                            Vacuum
-                            </Text>
+                            }>
+                            <Text style={{ color: "white" }}>
+                                Vacuum
+                        </Text>
+                        </Pressable>
                     </Right>
                 </Header>
                 <Content padder>
-                    <Image
-                        source={require('../assets/images/vacuum-cover.png')}
-                        style={{ height: 250, width: null, flex: 1, padding: 10, marginTop: -50 }}
-                    />
-                    <Card transparent style={{ borderRadius: 10, padding: 5, marginTop: -10 }}>
-                        <CardItem style={{ borderRadius: 10, padding: 10 }}>
-                            <Body style={{ padding: 10 }}>
-                                <Item floatingLabel>
-                                    <Icon type="MaterialIcons" name='email' />
-                                    <Label>Email</Label>
-                                    <Icon
-                                        name='information-circle'
-                                        onPress={this.showDialogAndroidEmailInfo}
-                                    />
-                                    <Input />
-                                </Item>
-                                <Item floatingLabel>
-                                    <Icon name='lock-closed' />
-                                    <Label>Password</Label>
-                                    <Input />
-                                </Item>
-                                <Text>
-                                    {'\n'}
-                                </Text>
-                                <Button
-                                    rounded
-                                    block
-                                    style={{ backgroundColor: "#FCC4C3", elevation: 0 }}
-                                    onPress={() => Navigation.push(this.props.componentId, {
-                                        component: {
-                                            name: "SetupProfile"
-                                        }
-                                    })}
-                                >
-                                    <H3 style={{ color: "#FFFFFF" }}>Let's Clean</H3>
-                                </Button>
-                            </Body>
-                        </CardItem>
-                    </Card>
-                    <Card style={{ padding: 20, marginTop: -10 }} transparent>
-                        <Text style={{ color: "#ffffff" }}>
-                            By clicking <Text>Let's Clean</Text>,
-                            you agree to our <Text
-                                onPress={this.showDialogAndroidTermsOfService}
-                                style={{ fontWeight: "bold" }}>Terms of Service </Text>and
-                                <Text
-                                onPress={this.ShowDialogAndroidPrivacyGuidelines}
-                                style={{ fontWeight: "bold" }}
+                    <Grid>
+                        <Col size={10}></Col>
+                        <Col size={80}>
+                            <Image source={require('../assets/images/vacuum-cover.png')} style={{ height: 200, width: null }} />
+                        </Col>
+                        <Col size={10}></Col>
+                    </Grid>
+                    <Grid>
+                        <Col style={{ padding: 15, backgroundColor: "#ffffff", borderRadius: 5 }}>
+                            <Item floatingLabel>
+                                <Icon type="MaterialCommunityIcons" name='email-outline' />
+                                <Label>Email</Label>
+                                <Icon
+                                    name='information-circle'
+                                    onPress={this.showDialogAndroidEmailInfo}
+                                />
+                                <Input />
+                            </Item>
+                            <Item floatingLabel>
+                                <Icon name='md-lock-closed-outline' />
+                                <Label>Password</Label>
+                                <Input />
+                            </Item>
+                            <Text>
+                                {'\n'}
+                            </Text>
+                            <Button
+                                rounded
+                                block
+                                style={{ backgroundColor: "#fcc4c3", elevation: 0 }}
+                                onPress={() => Navigation.push(this.props.componentId, {
+                                    component: {
+                                        name: "SetupProfile"
+                                    }
+                                })}
                             >
-                                {" "}Privacy Guideline
+                                <H3 style={{ color: "#ffffff" }}>Let's Clean</H3>
+                            </Button>
+                        </Col>
+                    </Grid>
+                    <Grid>
+                        <Row>
+                            <Col size={10}></Col>
+                            <Col size={80}>
+                                <Text style={{ color: "#ffffff", textAlign: "center" }}>
+                                    By clicking <Text>Let's Clean</Text>,
+                            you agree to our <Text
+                                        onPress={this.showDialogAndroidTermsOfService}
+                                        style={{ fontWeight: "bold" }}>Terms of Service </Text>and
+                                <Text
+                                        onPress={this.ShowDialogAndroidPrivacyGuidelines}
+                                        style={{ fontWeight: "bold" }}
+                                    >
+                                        {" "}Privacy Guideline
                                 </Text>
-                        </Text>
-                    </Card>
+                                </Text>
+                            </Col>
+                            <Col size={10}></Col>
+                        </Row>
+                    </Grid>
                 </Content>
-                <Footer>
+                <Footer style={{ elevation: 0 }}>
                     <FooterTab style={{ backgroundColor: "#fcc4c3" }}>
                         <Button transparent block style={{ elevation: 0 }}>
                             <Text style={{ color: "#ffffff" }}>
