@@ -41,7 +41,7 @@ Navigation.setDefaultOptions({
                 alpha: {
                     from: 0,
                     to: 1,
-                    duration: 400,
+                    duration: 300,
                 }
             },
             waitForRender: true
@@ -51,7 +51,7 @@ Navigation.setDefaultOptions({
                 alpha: {
                     from: 1,
                     to: 0,
-                    duration: 400,
+                    duration: 300,
                 }
             },
             waitForRender: true
