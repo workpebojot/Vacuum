@@ -77,7 +77,7 @@ export default class SignUp extends React.Component {
                         </CardItem>
                     </Card>
                 </Content>
-                <Footer>
+                <Footer style={{elevation: 0}}>
                     <FooterTab style={{backgroundColor: "#fcc4c3", borderWidth: 1, borderColor: "#fcc4c3"}}>
                         <Button transparent block style={{ elevation: 0 }}>
                             <Text style={{ color: "#ffffff" }}>
