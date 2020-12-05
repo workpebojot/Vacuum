@@ -18,25 +18,98 @@ import {
     H3,
     Picker
 } from 'native-base';
-import { BackHandler, Image } from 'react-native';
+import { BackHandler, Image, Pressable } from 'react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
+import { Navigation } from 'react-native-navigation';
+import storage from '@react-native-firebase/storage';
+import ImagePicker from 'react-native-image-picker';
+import Location from '.././data/location-data';
+import DialogAndroid from 'react-native-dialogs';
 
 export default class SetupProfile extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            selected2: undefined
-        };
+    state = {
+        imagePath: "https://user-images.githubusercontent.com/38276345/101146469-fece8700-3655-11eb-8d5b-5c12c95a7a2f.png",
+        isLoading: false,
+        selected: "Select Location",
     }
 
-    onValueChange2(value) {
+    OnPickLocation(value, index) {
         this.setState({
-            selected2: value
+            selected: value
+        }, () => {
+            if (index != 0) {
+                console.log(this.state.selected, index);
+            }
         });
     }
 
+    chooseFile = () => {
+        this.setState({ status: '' });
+        var options = {
+            title: 'Select Image',
+            storageOptions: {
+                path: 'images',
+            },
+        };
+        ImagePicker.showImagePicker(options, response => {
+            if (response.didCancel) {
+                console.log('Cancelled');
+            } else if (response.error) {
+                console.log('Error: ', response.error);
+            } else {
+                let path = response.path
+                let fileName = this.getFileName(response.fileName, path);
+                this.setState({ imagePath: path });
+                this.uploadImageToStorage(path, fileName);
+            }
+        });
+    };
+
+    getFileName(name, path) {
+        if (name != null) { return name; }
+        return path.split("/").pop();
+    }
+
+    uploadImageToStorage(path, name) {
+        this.setState({ isLoading: true });
+        let reference = storage().ref(`user/image/${name}`);
+        let task = reference.putFile(path);
+        task.then(() => {
+            console.log('Uploaded');
+            this.setState({ isLoading: false });
+        }).catch((e) => {
+            console.log('uploading image error => ', e);
+            this.setState({ isLoading: false });
+        });
+    }
+
+    getPlatformURI(imagePath) {
+        let imgSource = imagePath;
+        if (isNaN(imagePath)) {
+            imgSource = this.state.imagePath;
+            if (/https:/.test(imgSource)) {
+                imgSource = this.state.imagePath;
+            } else {
+                imgSource = "file:///" + this.state.imagePath;
+            }
+        }
+        return imgSource;
+    }
+
+    ShowDialogAndroidLocationInfo() {
+        DialogAndroid.alert("",
+            `<b>Why is your location not here?</b>
+             So far, only a few locations are available here in vacuum application`,
+            {
+                contentIsHtml: true
+            }
+        );
+    }
+
     render() {
+        let { imagePath } = this.state;
+        let imgSource = this.getPlatformURI(imagePath);
         return (
             <Container style={{ backgroundColor: "#05dee2" }}>
                 <Header noLeft transparent>
@@ -60,50 +133,59 @@ export default class SetupProfile extends React.Component {
                                     <Row></Row>
                                     <Row>
                                         <Col></Col>
-                                        <Image style={{ width: 200, height: 200, borderRadius: 100, backgroundColor: "gray" }} source={{ uri: ' ' }} />
-                                        <Col></Col>
+                                        <Image
+                                            style={{
+                                                width: 200,
+                                                height: 200,
+                                                borderRadius: 100,
+                                                borderColor: "#fcc4c3",
+                                                borderWidth: 4
+                                            }}
+                                            blurRadius={this.state.isLoading ? 5 : 0}
+                                            source={{ uri: imgSource }}
+                                        />
+                                        <Col style={{ flexDirection: "column-reverse" }}>
+                                            <Button
+                                                transparent
+                                                style={{
+                                                    marginLeft: -80,
+                                                    borderRadius: 100,
+                                                    elevation: 0
+                                                }}
+                                                onPress={this.chooseFile}>
+                                                <Icon type="AntDesign" style={{ fontSize: 50, color: "#05dee2", backgroundColor: "#ffffff", borderRadius: 100 }} name="pluscircle" />
+                                            </Button>
+                                        </Col>
                                     </Row>
                                     <Row></Row>
                                 </Col>
                             </Grid>
                             <Body style={{ padding: 10 }}>
-                                <Item floatingLabel>
-                                    <Icon type="AntDesign" name="user" />
+                                <Item inlineLabel>
                                     <Label>First Name</Label>
                                     <Input maxLength={20} />
                                 </Item>
-                                <Item floatingLabel>
-                                    <Icon name='lock-closed' />
+                                <Item inlineLabel last>
                                     <Label>Last Name</Label>
                                     <Input maxLength={20} />
                                 </Item>
                                 <Grid>
                                     <Col>
                                         <Item picker>
-                                            <Icon name='location' />
+                                            <Icon name='md-location-outline' />
                                             <Picker
-                                                mode="dropdown"
-                                                iosIcon={<Icon name="arrow-down" />}
+                                                mode="dialog"
                                                 style={{ width: undefined }}
-                                                placeholder="Select your SIM"
-                                                placeholderStyle={{ color: "#bfc6ea" }}
-                                                placeholderIconColor="#007aff"
-                                                selectedValue={this.state.selected2}
-                                                onValueChange={this.onValueChange2.bind(this)}
-                                            >
-                                                <Picker.Item label="Paltic" value="key0" />
-                                                <Picker.Item label="Aplaya" value="key1" />
-                                                <Picker.Item label="Butas Na Bato" value="key2" />
-                                                <Picker.Item label="Matawe" value="key3" />
-                                                <Picker.Item label="Caragsacan" value="key4" />
-                                                <Picker.Item label="Davildavilan" value="key4" />
-                                                <Picker.Item label="Dikapanikian" value="key4" />
-                                                <Picker.Item label="Ibona" value="key4" />
-                                                <Picker.Item label="Poblacion" value="key4" />
-                                                <Picker.Item label="Tanawan" value="key4" />
-                                                <Picker.Item label="Umiray" value="key4" />
+                                                selectedValue={this.state.selected}
+                                                onValueChange={(v, i) => { this.OnPickLocation(v, i) }}>
+                                                {
+                                                    Location.map((v) => (
+                                                        <Picker.Item key={v} label={v} value={v} />
+                                                    ))
+                                                }
+
                                             </Picker>
-                                            <Icon name='information-circle'/>
+                                            <Icon onPress={this.ShowDialogAndroidLocationInfo} name='information-circle' />
                                         </Item>
                                     </Col>
                                 </Grid>
