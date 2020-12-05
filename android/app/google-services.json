@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "470719700307",
+    "project_id": "vacuum-2020",
+    "storage_bucket": "vacuum-2020.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:470719700307:android:f27e8619a44c14ca4515a6",
+        "android_client_info": {
+          "package_name": "com.vacuum"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "470719700307-acplj20tiltp1tukcssbs146jsotis2l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vacuum",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "470719700307-b00i59c52olfiiphl10c5lf3u1pr4tr2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkONSdv58z-tTT_VgQPGAevCyvtcZX9gw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "470719700307-b00i59c52olfiiphl10c5lf3u1pr4tr2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
