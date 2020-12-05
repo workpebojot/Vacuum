@@ -10,11 +10,15 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-firebase/app": "^10.1.0",
+    "@react-native-firebase/storage": "^10.1.1",
+    "@react-native-picker/picker": "^1.9.4",
     "native-base": "^2.13.14",
     "react": "16.13.1",
     "react-native": "0.63.3",
     "react-native-dialogs": "^1.1.1",
     "react-native-easy-grid": "^0.2.2",
+    "react-native-image-picker": "^2.3.4",
     "react-native-navigation": "^7.4.0",
     "react-native-splash-screen": "^3.2.0"
   },
