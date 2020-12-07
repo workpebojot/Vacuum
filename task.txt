@@ -1,2 +1,3 @@
-1. Customize setup form (e.g. Picker component)
-2. Access file system
+1. Fix animation transition in overview page
+2. create select task page
+3. Find Job and Create Job search

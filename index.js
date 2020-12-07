@@ -6,13 +6,13 @@ import OverView from './src/overview/OverView';
 import SignUp from './src/signup/SignUp';
 import Login from './src/login/Login';
 import SetupProfile from './src/setup-profile/SetupProfile';
-import Demo from './src/demo/demo';
+import SelectTask from './src/select-task/SelectTask';
 
 Navigation.registerComponent('OverView', () => OverView);
 Navigation.registerComponent('SignUp', () => SignUp);
 Navigation.registerComponent('Login', () => Login);
 Navigation.registerComponent('SetupProfile', () => SetupProfile);
-Navigation.registerComponent('Demo', () => Demo);
+Navigation.registerComponent('SelectTask', () => SelectTask);
 
 Navigation.events().registerAppLaunchedListener(async () => {
     Navigation.setRoot({

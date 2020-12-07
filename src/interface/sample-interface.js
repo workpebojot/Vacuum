@@ -18,9 +18,9 @@ export default class SampleInterface extends React.Component {
             <Container style={{ backgroundColor: "#05dee2" }}>
                 <Head {...this.props} />
                 <Content padder>
-                    <Living data={this.props.data} />
                     <Kitchen data={this.props.data} />
                     <Laundry data={this.props.data} />
+                    <Living data={this.props.data} />
                 </Content>
             </Container>
         );

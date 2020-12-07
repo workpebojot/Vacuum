@@ -1,50 +1,32 @@
 const SampleData = [
     {
         name: "Kitchen Room",
-        author: "Edison Pebojot",
+        author: "Pebojot",
         date: "January 1, 2021",
         day: "Friday",
         hours: 2,
         location: "Paltic, Dingalan",
-        benefits: [
-            "Medical",
-            "Life Insurance",
-            "Paid Time",
-            "Food",
-            "Free Travel"
-        ],
+        reward: 200,
         cleaner: 21
     },
     {
         name: "Living Room",
-        author: "Ben Ten",
+        author: "James",
         date: "January 2, 2022",
         day: "Saturday",
         hours: 3,
         location: "Umiray, Dingalan",
-        benefits: [
-            "Food",
-            "Insurance",
-            "Travel Insurance",
-            "Food",
-            "Paid"
-        ],
+        reward: 800,
         cleaner: 26
     },
     {
-        name: "Laundry Room",
-        author: "Jackie Chan",
+        name: "Wash Room",
+        author: "Jasmine",
         date: "January 3, 2021",
         day: "Sunday",
         hours: 3,
         location: "Matawe, Dingalan",
-        benefits: [
-            "1 Sack of Rice",
-            "Food",
-            "Delata",
-            "Pananim",
-            "Ka"
-        ],
+        reward: 100,
         cleaner: 18
     }
 ]

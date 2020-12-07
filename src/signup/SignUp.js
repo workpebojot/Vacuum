@@ -66,7 +66,7 @@ export default class SignUp extends React.Component {
                         </Col>
                         <Col size={10}></Col>
                     </Grid>
-                    <Grid>
+                    <Grid style={{ backgroundColor: "#e5f8f5", padding: 10, borderRadius: 10 }}>
                         <Col style={{ padding: 15, backgroundColor: "#ffffff", borderRadius: 5 }}>
                             <Item floatingLabel>
                                 <Icon type="MaterialCommunityIcons" name='email-outline' />
@@ -85,18 +85,20 @@ export default class SignUp extends React.Component {
                             <Text>
                                 {'\n'}
                             </Text>
-                            <Button
-                                rounded
-                                block
-                                style={{ backgroundColor: "#fcc4c3", elevation: 0 }}
-                                onPress={() => Navigation.push(this.props.componentId, {
-                                    component: {
-                                        name: "SetupProfile"
-                                    }
-                                })}
-                            >
-                                <H3 style={{ color: "#ffffff" }}>Let's Clean</H3>
-                            </Button>
+                            <TouchableOpacity>
+                                <Button
+                                    rounded
+                                    block
+                                    style={{ backgroundColor: "#e4f7fd", elevation: 0 }}
+                                    onPress={() => Navigation.push(this.props.componentId, {
+                                        component: {
+                                            name: "SetupProfile"
+                                        }
+                                    })}
+                                >
+                                    <H3 style={{ color: "#000000" }}>Let's Clean</H3>
+                                </Button>
+                            </TouchableOpacity>
                         </Col>
                     </Grid>
                     <Grid>

@@ -29,7 +29,7 @@ import DialogAndroid from 'react-native-dialogs';
 export default class SetupProfile extends React.Component {
 
     state = {
-        imagePath: "https://user-images.githubusercontent.com/38276345/101146469-fece8700-3655-11eb-8d5b-5c12c95a7a2f.png",
+        imagePath: require('.././assets/images/1-demo-user.png'),
         isLoading: false,
         selected: "Select Location",
     }
@@ -87,12 +87,8 @@ export default class SetupProfile extends React.Component {
     getPlatformURI(imagePath) {
         let imgSource = imagePath;
         if (isNaN(imagePath)) {
-            imgSource = this.state.imagePath;
-            if (/https:/.test(imgSource)) {
-                imgSource = this.state.imagePath;
-            } else {
-                imgSource = "file:///" + this.state.imagePath;
-            }
+            imgSource = { uri: this.state.imagePath };
+            imgSource.uri = "file:///" + imgSource.uri;
         }
         return imgSource;
     }
@@ -126,10 +122,10 @@ export default class SetupProfile extends React.Component {
                     </Right>
                 </Header>
                 <Content padder>
-                    <Card transparent style={{ borderRadius: 10, padding: 5, marginTop: -10 }}>
+                    <Card transparent style={{ borderRadius: 10, padding: 10, backgroundColor: "#e5f8f5" }}>
                         <CardItem style={{ borderRadius: 10, padding: 10, flexDirection: "column" }}>
                             <Grid>
-                                <Col>
+                                <Col style={{ backgroundColor: "#e4f7fd", padding: 10, borderTopRightRadius: 10, borderTopLeftRadius: 10 }}>
                                     <Row></Row>
                                     <Row>
                                         <Col></Col>
@@ -138,11 +134,11 @@ export default class SetupProfile extends React.Component {
                                                 width: 200,
                                                 height: 200,
                                                 borderRadius: 100,
-                                                borderColor: "#fcc4c3",
+                                                borderColor: this.state.isLoading ? "#fcc4c3" : "#e5f8f5",
                                                 borderWidth: 4
                                             }}
                                             blurRadius={this.state.isLoading ? 5 : 0}
-                                            source={{ uri: imgSource }}
+                                            source={imgSource}
                                         />
                                         <Col style={{ flexDirection: "column-reverse" }}>
                                             <Button
@@ -160,18 +156,18 @@ export default class SetupProfile extends React.Component {
                                     <Row></Row>
                                 </Col>
                             </Grid>
-                            <Body style={{ padding: 10 }}>
-                                <Item inlineLabel>
+                            <Body style={{ padding: 10, backgroundColor: "#e4f7fd", borderBottomRightRadius: 10, borderBottomLeftRadius: 10 }}>
+                                <Item inlineLabel style={{ backgroundColor: "#e5f8f5", borderBottomColor: "#05dee2", borderBottomWidth: 3 }}>
                                     <Label>First Name</Label>
                                     <Input maxLength={20} />
                                 </Item>
-                                <Item inlineLabel last>
+                                <Item inlineLabel last style={{ backgroundColor: "#e5f8f5", borderBottomColor: "#fcc4c3", borderBottomWidth: 3 }}>
                                     <Label>Last Name</Label>
                                     <Input maxLength={20} />
                                 </Item>
                                 <Grid>
                                     <Col>
-                                        <Item picker>
+                                        <Item picker style={{ backgroundColor: "#e5f8f5", borderBottomColor: "#05dee2", borderBottomWidth: 3 }}>
                                             <Icon name='md-location-outline' />
                                             <Picker
                                                 mode="dialog"
@@ -195,9 +191,13 @@ export default class SetupProfile extends React.Component {
                                 <Button
                                     rounded
                                     block
-                                    style={{ backgroundColor: "#05dee2", elevation: 0 }}
-                                >
-                                    <H3 style={{ color: "#FFFFFF" }}>Let's Clean</H3>
+                                    onPress={() => Navigation.push(this.props.componentId, {
+                                        component: {
+                                            name: "SelectTask"
+                                        }
+                                    })}
+                                    style={{ backgroundColor: "#05dee2", elevation: 0 }}>
+                                    <H3 style={{ color: "#FFFFFF" }}>Ready!</H3>
                                 </Button>
                             </Body>
                         </CardItem>
