@@ -14,7 +14,9 @@ import { Pressable } from 'react-native';
 export default class Head extends React.Component {
     render() {
         return (
-            <Header noLeft transparent>
+            <Header
+                noLeft
+                transparent>
                 <Left style={{ flex: 1, margin: 10 }}>
                     <Pressable
                         android_ripple={{ color: "#fcc4c3", borderless: true }}
