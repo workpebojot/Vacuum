@@ -5,7 +5,7 @@ const SampleData = [
         date: "January 1, 2021",
         day: "Friday",
         hours: 2,
-        location: "Paltic, Dingalan",
+        location: "Paltic",
         reward: 200,
         cleaner: 21
     },
@@ -15,7 +15,7 @@ const SampleData = [
         date: "January 2, 2022",
         day: "Saturday",
         hours: 3,
-        location: "Umiray, Dingalan",
+        location: "Umiray",
         reward: 800,
         cleaner: 26
     },
@@ -25,7 +25,7 @@ const SampleData = [
         date: "January 3, 2021",
         day: "Sunday",
         hours: 3,
-        location: "Matawe, Dingalan",
+        location: "Matawe",
         reward: 100,
         cleaner: 18
     }
