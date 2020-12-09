@@ -1,3 +1,5 @@
-1. Fix animation transition in overview page
-2. create select task page
-3. Find Job and Create Job search
+1. Delete current node when clicked:
+
+
+
+2. Find Job and Create Job search
