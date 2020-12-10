@@ -54,6 +54,7 @@ export default class Kitchen extends React.Component {
 
     render() {
         const {
+            image,
             name,
             author,
             date,
@@ -77,7 +78,8 @@ export default class Kitchen extends React.Component {
                         borderBottomWidth: 3,
                         borderTopColor: "#05dee2",
                         borderTopWidth: 3,
-                        padding: 5}}>
+                        padding: 5
+                    }}>
                         <Col style={{
                             padding: 5,
                             backgroundColor: "#e4f7fd",
@@ -103,7 +105,7 @@ export default class Kitchen extends React.Component {
                                 }}>
                                     <Row style={{ alignItems: "center", justifyContent: "center", padding: 10, color: "#ffffff" }}>
                                         <H2>
-                                            {name}
+                                            {name}{" Room"}
                                         </H2>
                                     </Row>
                                     <Row style={{ alignItems: "center", justifyContent: "center", padding: 10, flexDirection: "column", backgroundColor: "#ffffff" }}>
@@ -128,7 +130,7 @@ export default class Kitchen extends React.Component {
                             <Row style={{ margin: 5 }}>
                                 <Col size={20} style={{ justifyContent: "center", alignItems: "center", margin: 5 }}>
                                     <Image
-                                        source={require('.././assets/images/1-demo-user.png')}
+                                        source={image}
                                         style={{ borderRadius: 100, width: 50, height: 50 }} />
                                 </Col>
                                 <Col size={60} style={{ justifyContent: "center", flexDirection: "row-reverse", margin: 5 }}>
@@ -152,7 +154,7 @@ export default class Kitchen extends React.Component {
                                     </TouchableOpacity>
                                     <Row style={{ alignItems: "center" }}>
                                         <Text>
-                                            {'By '}{author}
+                                            {'By '}{author.first}{" "}{author.last}
 
                                         </Text>
                                     </Row>
@@ -161,7 +163,7 @@ export default class Kitchen extends React.Component {
                             {
                                 this.state.expand && (
                                     <>
-                                        <Row style={{backgroundColor: "#e5f8f5", borderTopLeftRadius: 5, borderTopRightRadius: 5}}>
+                                        <Row style={{ backgroundColor: "#e5f8f5", borderTopLeftRadius: 5, borderTopRightRadius: 5 }}>
                                             <Col size={20} style={{ justifyContent: "center", alignItems: "center" }}>
                                                 <LottieView
                                                     source={require('../assets/animation/lottie/24189-calendar-date.json')}
@@ -177,7 +179,7 @@ export default class Kitchen extends React.Component {
                                                 </Text>
                                             </Col>
                                         </Row>
-                                        <Row style={{backgroundColor: "#e4f7fd"}}>
+                                        <Row style={{ backgroundColor: "#e4f7fd" }}>
                                             <Col size={20} style={{ justifyContent: "center", alignItems: "center" }}>
                                                 <LottieView
                                                     source={require('../assets/animation/lottie/34851-clock-12-hours')}
@@ -193,7 +195,7 @@ export default class Kitchen extends React.Component {
                                                 </Text>
                                             </Col>
                                         </Row>
-                                        <Row style={{backgroundColor: "#e5f8f5"}}>
+                                        <Row style={{ backgroundColor: "#e5f8f5" }}>
                                             <Col size={20} style={{ justifyContent: "center", alignItems: "center" }}>
                                                 <LottieView
                                                     source={require('../assets/animation/lottie/11422-travel-icons-map.json')}
@@ -210,7 +212,7 @@ export default class Kitchen extends React.Component {
                                             </Col>
                                         </Row>
                                         <TouchableOpacity>
-                                            <Row style={{backgroundColor: "#e4f7fd", borderBottomLeftRadius: 5, borderBottomRightRadius: 5}}>
+                                            <Row style={{ backgroundColor: "#e4f7fd", borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
                                                 <Col size={20} style={{ justifyContent: "center", alignItems: "center" }}>
                                                     <LottieView
                                                         source={require('../assets/animation/lottie/20542-bag-with-stuff.json')}

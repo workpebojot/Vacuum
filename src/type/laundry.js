@@ -54,6 +54,7 @@ export default class Laundry extends React.Component {
 
     render() {
         const {
+            image,
             name,
             author,
             date,
@@ -104,7 +105,7 @@ export default class Laundry extends React.Component {
                                 }}>
                                     <Row style={{ alignItems: "center", justifyContent: "center", padding: 10, color: "#ffffff" }}>
                                         <H2>
-                                            {name}
+                                            {name}{" Room"}
                                         </H2>
                                     </Row>
                                     <Row style={{ alignItems: "center", justifyContent: "center", padding: 10, flexDirection: "column", backgroundColor: "#ffffff" }}>
@@ -129,7 +130,7 @@ export default class Laundry extends React.Component {
                             <Row style={{ margin: 5 }}>
                                 <Col size={20} style={{ justifyContent: "center", alignItems: "center", margin: 5 }}>
                                     <Image
-                                        source={require('.././assets/images/2-demo-user.png')}
+                                        source={image}
                                         style={{ borderRadius: 100, width: 50, height: 50 }} />
                                 </Col>
                                 <Col size={60} style={{ justifyContent: "center", flexDirection: "row-reverse", margin: 5 }}>
@@ -153,8 +154,7 @@ export default class Laundry extends React.Component {
                                     </TouchableOpacity>
                                     <Row style={{ alignItems: "center" }}>
                                         <Text>
-                                            {'By '}{author}
-
+                                            {'By '}{author.first}{" "}{author.last}
                                         </Text>
                                     </Row>
                                 </Col>
