@@ -1,0 +1,493 @@
+{
+    "__reactInternalMemoizedMaskedChildContext": {
+        "parentPath": [
+            "NativeBase.Container",
+            "NativeBase.List"
+        ],
+        "theme": undefined
+    },
+    "__reactInternalMemoizedMergedChildContext": {
+        "parentPath": [
+            "NativeBase.Container",
+            "NativeBase.List",
+            "NativeBase.ListItem",
+            ".avatar"
+        ],
+        "rootTag": 71
+    },
+    "__reactInternalMemoizedUnmaskedChildContext": {
+        "parentPath": [
+            "NativeBase.Container",
+            "NativeBase.List"
+        ],
+        "rootTag": 71
+    },
+    "_reactInternalFiber": {
+        "_debugHookTypes": null,
+        "_debugID": 22688,
+        "_debugIsCurrentlyTiming": false,
+        "_debugNeedsRemount": false,
+        "_debugOwner": {
+            "_debugHookTypes": null,
+            "_debugID": 19275,
+            "_debugIsCurrentlyTiming": false,
+            "_debugNeedsRemount": false,
+            "_debugOwner": null,
+            "_debugSource": null,
+            "actualDuration": 584,
+            "actualStartTime": 1599606,
+            "alternate": [FiberNode
+            ],
+            "child": [FiberNode
+            ],
+            "childExpirationTime": 1073741823,
+            "dependencies": null,
+            "effectTag": 33,
+            "elementType": [Function FindJob
+            ],
+            "expirationTime": 0,
+            "firstEffect": [FiberNode
+            ],
+            "index": 0,
+            "key": null,
+            "lastEffect": [FiberNode
+            ],
+            "memoizedProps": [Object
+            ],
+            "memoizedState": [Object
+            ],
+            "mode": 8,
+            "nextEffect": null,
+            "pendingProps": [Object
+            ],
+            "ref": null,
+            "return": [FiberNode
+            ],
+            "selfBaseDuration": 21,
+            "sibling": null,
+            "stateNode": [FindJob
+            ],
+            "tag": 1,
+            "treeBaseDuration": 464,
+            "type": [Function FindJob
+            ],
+            "updateQueue": [Object
+            ]
+        },
+        "_debugSource": {
+            "columnNumber": 49,
+            "fileName": "D:\\Pebojot\\Documents\\Project\\Vacuum\\src\\find-job\\FindJob.js",
+            "lineNumber": 337
+        },
+        "actualDuration": 165,
+        "actualStartTime": 1599906,
+        "alternate": null,
+        "child": {
+            "_debugHookTypes": null,
+            "_debugID": 22907,
+            "_debugIsCurrentlyTiming": false,
+            "_debugNeedsRemount": false,
+            "_debugOwner": [Circular
+            ],
+            "_debugSource": [Object
+            ],
+            "actualDuration": 155,
+            "actualStartTime": 1599916,
+            "alternate": null,
+            "child": [FiberNode
+            ],
+            "childExpirationTime": 0,
+            "dependencies": null,
+            "effectTag": 129,
+            "elementType": [Function ListItem
+            ],
+            "expirationTime": 0,
+            "firstEffect": [FiberNode
+            ],
+            "index": 0,
+            "key": null,
+            "lastEffect": [FiberNode
+            ],
+            "memoizedProps": [Object
+            ],
+            "memoizedState": null,
+            "mode": 8,
+            "nextEffect": null,
+            "pendingProps": [Object
+            ],
+            "ref": [Function bound setWrappedInstance
+            ],
+            "return": [Circular
+            ],
+            "selfBaseDuration": 1,
+            "sibling": null,
+            "stateNode": [ListItem
+            ],
+            "tag": 1,
+            "treeBaseDuration": 93,
+            "type": [Function ListItem
+            ],
+            "updateQueue": [Object
+            ]
+        },
+        "childExpirationTime": 0,
+        "dependencies": null,
+        "effectTag": 129,
+        "elementType": [Function StyledComponent
+        ],
+        "expirationTime": 0,
+        "firstEffect": {
+            "_debugHookTypes": null,
+            "_debugID": 22965,
+            "_debugIsCurrentlyTiming": false,
+            "_debugNeedsRemount": false,
+            "_debugOwner": [FiberNode
+            ],
+            "_debugSource": [Object
+            ],
+            "actualDuration": 3,
+            "actualStartTime": 1599934,
+            "alternate": null,
+            "child": null,
+            "childExpirationTime": 0,
+            "dependencies": null,
+            "effectTag": 128,
+            "elementType": "RCTImageView",
+            "expirationTime": 0,
+            "firstEffect": null,
+            "index": 0,
+            "key": null,
+            "lastEffect": null,
+            "memoizedProps": [Object
+            ],
+            "memoizedState": null,
+            "mode": 8,
+            "nextEffect": null,
+            "pendingProps": [Object
+            ],
+            "ref": [Function ref
+            ],
+            "return": [FiberNode
+            ],
+            "selfBaseDuration": 0,
+            "sibling": null,
+            "stateNode": [ReactNativeFiberHostComponent
+            ],
+            "tag": 5,
+            "treeBaseDuration": 0,
+            "type": "RCTImageView",
+            "updateQueue": null
+        },
+        "index": 1,
+        "key": "1",
+        "lastEffect": {
+            "_debugHookTypes": null,
+            "_debugID": 22907,
+            "_debugIsCurrentlyTiming": false,
+            "_debugNeedsRemount": false,
+            "_debugOwner": [Circular
+            ],
+            "_debugSource": [Object
+            ],
+            "actualDuration": 155,
+            "actualStartTime": 1599916,
+            "alternate": null,
+            "child": [FiberNode
+            ],
+            "childExpirationTime": 0,
+            "dependencies": null,
+            "effectTag": 129,
+            "elementType": [Function ListItem
+            ],
+            "expirationTime": 0,
+            "firstEffect": [FiberNode
+            ],
+            "index": 0,
+            "key": null,
+            "lastEffect": [FiberNode
+            ],
+            "memoizedProps": [Object
+            ],
+            "memoizedState": null,
+            "mode": 8,
+            "nextEffect": null,
+            "pendingProps": [Object
+            ],
+            "ref": [Function bound setWrappedInstance
+            ],
+            "return": [Circular
+            ],
+            "selfBaseDuration": 1,
+            "sibling": null,
+            "stateNode": [ListItem
+            ],
+            "tag": 1,
+            "treeBaseDuration": 93,
+            "type": [Function ListItem
+            ],
+            "updateQueue": [Object
+            ]
+        },
+        "memoizedProps": {
+            "avatar": true,
+            "children": <ForwardRef … />,
+            "style": [Object
+            ],
+            "virtual": undefined
+        },
+        "memoizedState": {
+            "addedProps": [Object
+            ],
+            "style": [Array
+            ],
+            "styleNames": [Array
+            ]
+        },
+        "mode": 8,
+        "nextEffect": null,
+        "pendingProps": {
+            "avatar": true,
+            "children": <ForwardRef … />,
+            "style": [Object
+            ],
+            "virtual": undefined
+        },
+        "ref": {
+            "current": [Circular
+            ]
+        },
+        "return": {
+            "_debugHookTypes": null,
+            "_debugID": 20542,
+            "_debugIsCurrentlyTiming": false,
+            "_debugNeedsRemount": false,
+            "_debugOwner": null,
+            "_debugSource": null,
+            "actualDuration": 344,
+            "actualStartTime": 1599727,
+            "alternate": [FiberNode
+            ],
+            "child": [FiberNode
+            ],
+            "childExpirationTime": 0,
+            "dependencies": null,
+            "effectTag": 0,
+            "elementType": null,
+            "expirationTime": 0,
+            "firstEffect": [FiberNode
+            ],
+            "index": 0,
+            "key": null,
+            "lastEffect": [Circular
+            ],
+            "memoizedProps": [Array
+            ],
+            "memoizedState": null,
+            "mode": 8,
+            "nextEffect": null,
+            "pendingProps": [Array
+            ],
+            "ref": null,
+            "return": [FiberNode
+            ],
+            "selfBaseDuration": 0,
+            "sibling": null,
+            "stateNode": null,
+            "tag": 7,
+            "treeBaseDuration": 216,
+            "type": null,
+            "updateQueue": null
+        },
+        "selfBaseDuration": 10,
+        "sibling": null,
+        "stateNode": [Circular
+        ],
+        "tag": 1,
+        "treeBaseDuration": 103,
+        "type": [Function StyledComponent
+        ],
+        "updateQueue": {
+            "baseQueue": null,
+            "baseState": [Object
+            ],
+            "effects": null,
+            "shared": [Object
+            ]
+        }
+    },
+    "_reactInternalInstance": {},
+    "_root": {
+        "_children": [
+            [ReactNativeFiberHostComponent
+            ]
+        ],
+        "_internalFiberInstanceHandleDEV": {
+            "_debugHookTypes": null,
+            "_debugID": 22917,
+            "_debugIsCurrentlyTiming": false,
+            "_debugNeedsRemount": false,
+            "_debugOwner": [FiberNode
+            ],
+            "_debugSource": [Object
+            ],
+            "actualDuration": 152,
+            "actualStartTime": 1599919,
+            "alternate": null,
+            "child": [FiberNode
+            ],
+            "childExpirationTime": 0,
+            "dependencies": null,
+            "effectTag": 128,
+            "elementType": "RCTView",
+            "expirationTime": 0,
+            "firstEffect": [FiberNode
+            ],
+            "index": 0,
+            "key": null,
+            "lastEffect": [FiberNode
+            ],
+            "memoizedProps": [Object
+            ],
+            "memoizedState": null,
+            "mode": 8,
+            "nextEffect": null,
+            "pendingProps": [Object
+            ],
+            "ref": [Function ref
+            ],
+            "return": [FiberNode
+            ],
+            "selfBaseDuration": 0,
+            "sibling": null,
+            "stateNode": [Circular
+            ],
+            "tag": 5,
+            "treeBaseDuration": 90,
+            "type": "RCTView",
+            "updateQueue": null
+        },
+        "_nativeTag": 3849,
+        "viewConfig": {
+            "Commands": [Object
+            ],
+            "bubblingEventTypes": [Object
+            ],
+            "directEventTypes": [Object
+            ],
+            "uiViewClassName": "RCTView",
+            "validAttributes": [Object
+            ]
+        }
+    },
+    "context": {
+        "parentPath": [
+            "NativeBase.Container",
+            "NativeBase.List"
+        ],
+        "theme": undefined
+    },
+    "props": {
+        "avatar": true,
+        "children": <ForwardRef onPress={
+            [Function onPress
+            ]
+        } style={
+            [Object
+            ]
+        }><Styled(Left) … /><Styled(Body) … /><Styled(Right) … /></ForwardRef>,
+        "style": {
+            "backgroundColor": "#e4f7fd"
+        },
+        "virtual": undefined
+    },
+    "refs": {},
+    "resolveConnectedComponentStyle": [Function bound resolveConnectedComponentStyle
+    ],
+    "setWrappedInstance": [Function bound setWrappedInstance
+    ],
+    "state": {
+        "addedProps": {},
+        "style": [
+            [Object
+            ],
+            [Object
+            ]
+        ],
+        "styleNames": [
+            ".avatar"
+        ]
+    },
+    "updater": {
+        "enqueueForceUpdate": [Function enqueueForceUpdate
+        ],
+        "enqueueReplaceState": [Function enqueueReplaceState
+        ],
+        "enqueueSetState": [Function enqueueSetState
+        ],
+        "isMounted": [Function isMounted
+        ]
+    },
+    "wrappedInstance": {
+        "_children": [
+            [ReactNativeFiberHostComponent
+            ]
+        ],
+        "_internalFiberInstanceHandleDEV": {
+            "_debugHookTypes": null,
+            "_debugID": 22917,
+            "_debugIsCurrentlyTiming": false,
+            "_debugNeedsRemount": false,
+            "_debugOwner": [FiberNode
+            ],
+            "_debugSource": [Object
+            ],
+            "actualDuration": 152,
+            "actualStartTime": 1599919,
+            "alternate": null,
+            "child": [FiberNode
+            ],
+            "childExpirationTime": 0,
+            "dependencies": null,
+            "effectTag": 128,
+            "elementType": "RCTView",
+            "expirationTime": 0,
+            "firstEffect": [FiberNode
+            ],
+            "index": 0,
+            "key": null,
+            "lastEffect": [FiberNode
+            ],
+            "memoizedProps": [Object
+            ],
+            "memoizedState": null,
+            "mode": 8,
+            "nextEffect": null,
+            "pendingProps": [Object
+            ],
+            "ref": [Function ref
+            ],
+            "return": [FiberNode
+            ],
+            "selfBaseDuration": 0,
+            "sibling": null,
+            "stateNode": [Circular
+            ],
+            "tag": 5,
+            "treeBaseDuration": 90,
+            "type": "RCTView",
+            "updateQueue": null
+        },
+        "_nativeTag": 3849,
+        "viewConfig": {
+            "Commands": [Object
+            ],
+            "bubblingEventTypes": [Object
+            ],
+            "directEventTypes": [Object
+            ],
+            "uiViewClassName": "RCTView",
+            "validAttributes": [Object
+            ]
+        }
+    }
+}
