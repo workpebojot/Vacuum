@@ -149,13 +149,13 @@ export default class SignUp extends React.Component {
     showDialogAndroidTermsOfService = async () => {
         await DialogAndroid.alert('Terms of Service',
             `
-            <h5>About Terms of Service</h5>
-                <span>
-                    Users must obey or comply with the terms of service given below.
-                    The terms of use include the disambiguation that we use, the 
-                    privileges and obligations of consumers, disclaimer, and 
-                    alteration of terms of service.
-                </span>
+                <h5>About Terms of Service</h5>
+                    <span>
+                        Users must obey or comply with the terms of service given below.
+                        The terms of use include the disambiguation that we use, the 
+                        privileges and obligations of consumers, disclaimer, and 
+                        alteration of terms of service.
+                    </span>
             
                 <h5>Disambugation of Terms</h5>
                     <span>
