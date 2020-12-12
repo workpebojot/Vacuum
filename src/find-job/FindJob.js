@@ -37,6 +37,7 @@ import DialogAndroid from 'react-native-dialogs';
 import LottieView from 'lottie-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SampleData from '.././data/sample-data';
+import Clean from './../type/clean';
 
 UIManager.setLayoutAnimationEnabledExperimental(true);
 
@@ -56,7 +57,7 @@ export default class FindJob extends React.Component {
         deleted: [],
         searchbutton: [],
         history: [],
-        cancelkeyboard: false
+        cancelkeyboard: Keyboard.dismiss
     }
 
     SearchEngineTerm(value) {
@@ -546,78 +547,11 @@ export default class FindJob extends React.Component {
                                 <Text>Popular in your location</Text>
                             </Row>
                         </Grid>
-                        <Card transparent style={{ borderRadius: 10, padding: 10, backgroundColor: "#e5f8f5" }}>
-                            <CardItem style={{ borderRadius: 10, padding: 10, flexDirection: "column" }}>
-                                <Body style={{ padding: 10, backgroundColor: "#e4f7fd", borderBottomRightRadius: 10, borderBottomLeftRadius: 10 }}>
-                                    <Item inlineLabel style={{ backgroundColor: "#e5f8f5", borderBottomColor: "#05dee2", borderBottomWidth: 3 }}>
-                                        <Label>First Name</Label>
-                                        <Input maxLength={20} />
-                                    </Item>
-                                    <Item inlineLabel last style={{ backgroundColor: "#e5f8f5", borderBottomColor: "#fcc4c3", borderBottomWidth: 3 }}>
-                                        <Label>Last Name</Label>
-                                        <Input maxLength={20} />
-                                    </Item>
-                                    <Grid>
-                                        <Col>
-                                            <Item picker style={{ backgroundColor: "#e5f8f5", borderBottomColor: "#05dee2", borderBottomWidth: 3 }}>
-                                                <Icon name='md-location-outline' />
-                                                <Icon name='information-circle' />
-                                            </Item>
-                                        </Col>
-                                    </Grid>
-                                    <Text>
-                                        {'\n'}
-                                    </Text>
-                                    <Button
-                                        rounded
-                                        block
-                                        onPress={() => Navigation.push(this.props.componentId, {
-                                            component: {
-                                                name: "SelectTask"
-                                            }
-                                        })}
-                                        style={{ backgroundColor: "#05dee2", elevation: 0 }}>
-                                        <H3 style={{ color: "#FFFFFF" }}>Ready!</H3>
-                                    </Button>
-                                </Body>
-                            </CardItem>
-                        </Card>
-                        <Card transparent style={{ borderRadius: 10, padding: 10, backgroundColor: "#e5f8f5" }}>
-                            <CardItem style={{ borderRadius: 10, padding: 10, flexDirection: "column" }}>
-                                <Body style={{ padding: 10, backgroundColor: "#e4f7fd", borderBottomRightRadius: 10, borderBottomLeftRadius: 10 }}>
-                                    <Item inlineLabel style={{ backgroundColor: "#e5f8f5", borderBottomColor: "#05dee2", borderBottomWidth: 3 }}>
-                                        <Label>First Name</Label>
-                                        <Input maxLength={20} />
-                                    </Item>
-                                    <Item inlineLabel last style={{ backgroundColor: "#e5f8f5", borderBottomColor: "#fcc4c3", borderBottomWidth: 3 }}>
-                                        <Label>Last Name</Label>
-                                        <Input maxLength={20} />
-                                    </Item>
-                                    <Grid>
-                                        <Col>
-                                            <Item picker style={{ backgroundColor: "#e5f8f5", borderBottomColor: "#05dee2", borderBottomWidth: 3 }}>
-                                                <Icon name='md-location-outline' />
-                                                <Icon name='information-circle' />
-                                            </Item>
-                                        </Col>
-                                    </Grid>
-                                    <Text>
-                                        {'\n'}
-                                    </Text>
-                                    <Button
-                                        rounded
-                                        block
-                                        onPress={() => Navigation.push(this.props.componentId, {
-                                            component: {
-                                                name: "SelectTask"
-                                            }
-                                        })}
-                                        style={{ backgroundColor: "#05dee2", elevation: 0 }}>
-                                        <H3 style={{ color: "#FFFFFF" }}>Ready!</H3>
-                                    </Button>
-                                </Body>
-                            </CardItem>
-                        </Card>
+                        {
+                            SampleData.map((value, key) => (
+                                <Clean key={key} data={value} />
+                            ))
+                        }
                     </Content>
                 )}
 
@@ -649,6 +583,12 @@ export default class FindJob extends React.Component {
 
     async componentDidMount() {
         try {
+            if (SampleData.length !== 0) {
+                const data = SampleData.filter(v => v.cleaner > 20);
+                data.forEach(v => {
+                    console.log(v.cleaner);
+                });
+            }
             const value = await this.GetAllKeys();
             if (value.length !== 0) {
                 const deleted = value.filter(v => v == "deleted")[0];
