@@ -4,9 +4,7 @@ import {
     Content
 } from 'native-base';
 import Head from './../header/header';
-import Kitchen from './../type/kitchen';
-import Living from './../type/living';
-import Laundry from './../type/laundry';
+import Clean from './../type/clean';
 
 export default class SampleInterface extends React.Component {
     constructor(props) {
@@ -18,9 +16,11 @@ export default class SampleInterface extends React.Component {
             <Container style={{ backgroundColor: "#05dee2" }}>
                 <Head {...this.props} />
                 <Content padder>
-                    <Kitchen data={this.props.data} />
-                    <Laundry data={this.props.data} />
-                    <Living data={this.props.data} />
+                    {
+                        this.props.data.map((value, key) => (
+                            <Clean key={key} data={value} />
+                        ))
+                    }
                 </Content>
             </Container>
         );
