@@ -450,7 +450,7 @@ export default class FindJob extends React.Component {
                                     this.isBackSpaced();
                                 }
                             }}
-                            autoFocus={false}
+                            autoFocus={true}
                             onSubmitEditing={this.state.cancelkeyboard}
                             placeholder="Search"
                             onChangeText={(value) => this.SearchEngineTerm(value)} />
@@ -548,9 +548,11 @@ export default class FindJob extends React.Component {
                             </Row>
                         </Grid>
                         {
-                            SampleData.map((value, key) => (
-                                <Clean key={key} data={value} />
-                            ))
+                            SampleData.map((value, key) => {
+                                if ((value.location === "Paltic")) {
+                                    return <Clean key={key} data={value} />;
+                                }
+                            })
                         }
                     </Content>
                 )}
