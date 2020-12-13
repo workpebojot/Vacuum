@@ -35,6 +35,8 @@ import {
 } from 'react-native';
 import DialogAndroid from 'react-native-dialogs';
 import LottieView from 'lottie-react-native';
+import { Navigation } from 'react-native-navigation';
+
 import AsyncStorageMethod from './../utilities/method/async-storage';
 import SampleData from '.././data/sample-data';
 import Clean from './../type/clean';
@@ -47,20 +49,28 @@ export default class FindJob extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            search: [],
-            expand: false,
-            searchbutton: [],
-            deleted: [],
-            history: [],
-            cancelkeyboard: Keyboard.dismiss,
-            location: ""
+            ...this.state
         }
         this.storage = new AsyncStorageMethod();
     }
 
+    state = {
+        search: [],
+        expand: false,
+        searchbutton: [],
+        deleted: [],
+        history: [],
+        cancelkeyboard: Keyboard.dismiss,
+        location: ""
+    }
+
     deleted(key) {
-        this.state.deleted.push(key);
-        this.setState({ deleted: this.state.deleted });
+        if (this.state.deleted !== undefined) {
+            this.state.deleted.push(key);
+            this.setState({ deleted: this.state.deleted }, () => {
+                console.log(this.state.deleted);
+            });
+        }
     }
 
     SearchEngineTerm(value) {
@@ -423,9 +433,21 @@ export default class FindJob extends React.Component {
                         </Grid>
                         {
                             SampleData.map((value, key) => {
-                                if ((value.location === "Paltic")) {
-                                    this.state.location = value.location;
-                                    return <Clean key={key} data={value} />;
+                                if (this.state.deleted.length !== 0) {
+                                    this.PopularTopicCondition = this.state.deleted.every(v => v != value.id);
+                                } else {
+                                    this.PopularTopicCondition = true;
+                                }
+                                if (this.PopularTopicCondition) {
+                                    if ((value.location === "Paltic")) {
+                                        const page = "Find Job";
+                                        this.state.location = value.location;
+                                        return <Clean
+                                            page={page}
+                                            deleted={this.deleted.bind(this)}
+                                            key={key}
+                                            data={value} />;
+                                    }
                                 }
                             })
                         }
@@ -433,22 +455,22 @@ export default class FindJob extends React.Component {
                 )}
 
                 <Footer>
-                    <FooterTab style={{ backgroundColor: "#05dee2" }}>
-                        <Button badge vertical>
-                            <Badge><Text>2</Text></Badge>
+                    <FooterTab active={false} style={{ backgroundColor: "#05dee2" }}>
+                        <Button badge={false} vertical>
+                            {/* <Badge><Text>2</Text></Badge> */}
                             <Icon name="apps" style={{ color: "#ffffff" }} />
                             <Text style={{ color: "#ffffff" }}>Apps</Text>
                         </Button>
-                        <Button vertical>
+                        <Button active={false} badge={false} vertical>
                             <Icon name="camera" style={{ color: "#ffffff" }} />
                             <Text style={{ color: "#ffffff" }}>Camera</Text>
                         </Button>
-                        <Button active badge vertical>
-                            <Badge><Text>51</Text></Badge>
-                            <Icon active name="navigate" style={{ color: "#ffffff" }} />
-                            <Text style={{ color: "#ffffff" }}>Navigate</Text>
+                        <Button active={true} style={{ backgroundColor: "#e4f7fd" }} badge={false} vertical>
+                            {/* <Badge><Text>51</Text></Badge> */}
+                            <Icon active={true} name="navigate" style={{ color: "pink" }} />
+                            <Text style={{ color: "pink" }}>Navigate</Text>
                         </Button>
-                        <Button vertical>
+                        <Button active={false} badge={false} vertical>
                             <Icon name="person" style={{ color: "#ffffff" }} />
                             <Text style={{ color: "#ffffff" }}>Contact</Text>
                         </Button>
@@ -461,6 +483,7 @@ export default class FindJob extends React.Component {
     async componentDidMount() {
         try {
             if (SampleData.length !== 0) {
+                // await this.storage.Clear();
                 const data = SampleData.filter(v => v.cleaner > 20);
                 data.forEach(v => {
                     console.log(v.cleaner);
@@ -468,7 +491,7 @@ export default class FindJob extends React.Component {
             }
             const value = await this.storage.GetAllKeys();
             if (value.length !== 0) {
-                const deleted = value.filter(v => v == "deleted")[0];
+                const deleted = value.filter(v => v == "cleaning")[0];
                 const history = value.filter(v => v == "history")[0];
                 if (deleted != null) {
                     const DeletedValue = await this.storage.GetData(deleted);
