@@ -9,6 +9,7 @@ import {
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { TouchableOpacity, Image, LayoutAnimation, UIManager } from 'react-native';
 import LottieView from 'lottie-react-native';
+import DialogMethod from '..//utilities/method/dialog';
 
 UIManager.setLayoutAnimationEnabledExperimental(true);
 
@@ -20,6 +21,8 @@ export default class Clean extends React.Component {
             value: props.data,
             animation: [props.data]
         }
+
+        this.dialog = new DialogMethod();
     }
 
     state = {
@@ -243,7 +246,7 @@ export default class Clean extends React.Component {
                                                 </Text>
                                             </Col>
                                         </Row>
-                                        <TouchableOpacity key={4}>
+                                        <TouchableOpacity key={4} onPress={() => this.dialog.topicDescriptionAndTaskDialogMethod(this.state.value)}>
                                             <Row style={{ backgroundColor: "#e4f7fd", borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
                                                 <Col size={20} style={{ justifyContent: "center", alignItems: "center" }}>
                                                     <LottieView
@@ -282,9 +285,9 @@ export default class Clean extends React.Component {
                                 <LottieView
                                     source={require('../assets/animation/lottie/8489-clean.json')}
                                     style={{ width: 50, height: 50 }}
-                                    ref={animation=>{
+                                    ref={animation => {
                                         this.clean = animation;
-                                    }}/>
+                                    }} />
                             </TouchableOpacity>
                         </Col>
                         <Col size={20}>
