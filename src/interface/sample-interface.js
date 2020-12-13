@@ -17,9 +17,10 @@ export default class SampleInterface extends React.Component {
                 <Head {...this.props} />
                 <Content padder>
                     {
-                        this.props.data.map((value, key) => (
-                            <Clean key={key} data={value} />
-                        ))
+                        this.props.data.map((value, key) => {
+                            const page = "Overview";
+                            return <Clean page={page} key={key} data={value} />;
+                        })
                     }
                 </Content>
             </Container>

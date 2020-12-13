@@ -3,7 +3,7 @@ import { Button, Text, Right, Left, Body, Thumbnail } from 'native-base';
 import { TouchableOpacity } from 'react-native';
 import LottieView from 'lottie-react-native';
 import DialogMethod from './/method/dialog';
-import AsyncStorageMethod from './../utilities/method/async-storage';
+import CleanButonMethod from './../utilities/method/clean-button-method';
 
 export default class TopicDescriptionAndTaskDialog extends React.Component {
 
@@ -13,23 +13,17 @@ export default class TopicDescriptionAndTaskDialog extends React.Component {
         this.deleted = props.deleted;
         this.state = { animation: [] }
         this.dialog = new DialogMethod();
-        this.storage = new AsyncStorageMethod();
+        this.cleanbutton = new CleanButonMethod
+            (
+                {
+                    animation: this.animation.bind(this),
+                    deleted: this.deleted
+                }
+            );
     }
 
-    async topicCleanNow(key) {
-        const translated = String.fromCharCode(97 + key);
-        const animated = this.state.animation.filter(v => v[translated])[0][translated];
-        try {
-            animated.play();
-            setTimeout(async () => {
-                animated.pause();
-                this.deleted(key)
-                const value = "" + key;
-                await this.storage.StoreData("deleted", value);
-            }, 2000)
-        } catch (e) {
-            console.log(e.message);
-        }
+    animation(translated) {
+        return this.state.animation.filter(v => v[translated])[0][translated];
     }
 
     render() {
@@ -60,7 +54,7 @@ export default class TopicDescriptionAndTaskDialog extends React.Component {
                             padding: 5,
                             backgroundColor: "#e4f7fd"
                         }}
-                        onPress={() => this.topicCleanNow(this.value.id)}>
+                        onPress={() => this.cleanbutton.findJobTopicCleanButton(this.value.id)}>
                         <LottieView
                             source={require('../assets/animation/lottie/8489-clean.json')}
                             style={{ width: 50, height: 50 }}

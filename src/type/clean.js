@@ -9,6 +9,7 @@ import {
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { TouchableOpacity, Image, LayoutAnimation, UIManager } from 'react-native';
 import LottieView from 'lottie-react-native';
+import AsyncStorageMethod from '..//utilities/method/async-storage';
 import DialogMethod from '..//utilities/method/dialog';
 
 UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -18,10 +19,12 @@ export default class Clean extends React.Component {
         super(props);
         this.state = {
             ...this.state,
+            page: props.page,
             value: props.data,
             animation: [props.data]
         }
-
+        this.deleted = props.deleted;
+        this.storage = new AsyncStorageMethod();
         this.dialog = new DialogMethod();
     }
 
@@ -29,7 +32,8 @@ export default class Clean extends React.Component {
         expand: [],
         animation: [],
         open: false,
-        value: {}
+        value: {},
+        page: ""
     }
 
     CleanExpand(condition) {
@@ -48,12 +52,41 @@ export default class Clean extends React.Component {
         }
     }
 
-    CleanNow() {
+    async typeCleanCheck(key, page) {
+        switch (page) {
+            case "Overview":
+                this.demoCleanButton();
+                break;
+            case "Find Job":
+                await this.CleanNow(key);
+            default:
+                break;
+
+        }
+    }
+
+    demoCleanButton() {
         this.clean.play();
         setTimeout(() => {
             this.clean.pause()
-        }, 3000)
+        }, 2000)
     }
+
+    async CleanNow(key) {
+        try {
+            this.clean.play();
+            setTimeout(async () => {
+                this.clean.pause()
+                this.deleted(key);
+                const value = "" + key;
+                await this.storage.StoreData("cleaning", value);
+            }, 2000)
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+
+
 
     CleanType(type) {
         switch (type) {
@@ -246,7 +279,10 @@ export default class Clean extends React.Component {
                                                 </Text>
                                             </Col>
                                         </Row>
-                                        <TouchableOpacity key={4} onPress={() => this.dialog.topicDescriptionAndTaskDialogMethod(this.state.value)}>
+                                        <TouchableOpacity
+                                            key={4}
+                                            onPress={() => this.dialog.topicDescriptionAndTaskDialogMethod(this.state.expand[0])}
+                                        >
                                             <Row style={{ backgroundColor: "#e4f7fd", borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
                                                 <Col size={20} style={{ justifyContent: "center", alignItems: "center" }}>
                                                     <LottieView
@@ -281,7 +317,7 @@ export default class Clean extends React.Component {
                                 alignItems: "center"
                             }}>
 
-                            <TouchableOpacity onPress={() => this.CleanNow()}>
+                            <TouchableOpacity onPress={() => this.typeCleanCheck(this.state.value.id, this.state.page)}>
                                 <LottieView
                                     source={require('../assets/animation/lottie/8489-clean.json')}
                                     style={{ width: 50, height: 50 }}
