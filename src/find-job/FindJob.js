@@ -41,6 +41,7 @@ import AsyncStorageMethod from './../utilities/method/async-storage';
 import SampleData from '.././data/sample-data';
 import Clean from './../type/clean';
 import TopicDescriptionAndTaskDialog from './../utilities/topic-description-and-task-dialog';
+import HomeFooter from '../utilities/home-footer';
 
 UIManager.setLayoutAnimationEnabledExperimental(true);
 
@@ -454,34 +455,14 @@ export default class FindJob extends React.Component {
                     </Content>
                 )}
 
-                <Footer>
-                    <FooterTab active={false} style={{ backgroundColor: "#05dee2" }}>
-                        <Button badge={false} vertical>
-                            {/* <Badge><Text>2</Text></Badge> */}
-                            <Icon name="apps" style={{ color: "#ffffff" }} />
-                            <Text style={{ color: "#ffffff" }}>Apps</Text>
-                        </Button>
-                        <Button active={false} badge={false} vertical>
-                            <Icon name="camera" style={{ color: "#ffffff" }} />
-                            <Text style={{ color: "#ffffff" }}>Camera</Text>
-                        </Button>
-                        <Button active={true} style={{ backgroundColor: "#e4f7fd" }} badge={false} vertical>
-                            {/* <Badge><Text>51</Text></Badge> */}
-                            <Icon active={true} name="navigate" style={{ color: "pink" }} />
-                            <Text style={{ color: "pink" }}>Navigate</Text>
-                        </Button>
-                        <Button active={false} badge={false} vertical>
-                            <Icon name="person" style={{ color: "#ffffff" }} />
-                            <Text style={{ color: "#ffffff" }}>Contact</Text>
-                        </Button>
-                    </FooterTab>
-                </Footer>
+                <HomeFooter {...this.props} page="Find Job" />
             </Container>
         );
     }
 
     async componentDidMount() {
         try {
+            this.setState({ page: "Find Job" });
             if (SampleData.length !== 0) {
                 // await this.storage.Clear();
                 const data = SampleData.filter(v => v.cleaner > 20);
