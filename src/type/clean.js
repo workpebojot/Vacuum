@@ -9,63 +9,101 @@ import {
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { TouchableOpacity, Image, LayoutAnimation, UIManager } from 'react-native';
 import LottieView from 'lottie-react-native';
+import AsyncStorageMethod from '..//utilities/method/async-storage';
+import DialogMethod from '..//utilities/method/dialog';
 
 UIManager.setLayoutAnimationEnabledExperimental(true);
 
-export default class Living extends React.Component {
+export default class Clean extends React.Component {
     constructor(props) {
         super(props);
-        this.props = props;
+        this.state = {
+            ...this.state,
+            page: props.page,
+            value: props.data,
+            animation: [props.data]
+        }
+        this.deleted = props.deleted;
+        this.storage = new AsyncStorageMethod();
+        this.dialog = new DialogMethod();
     }
 
     state = {
-        expand: false
+        expand: [],
+        animation: [],
+        open: false,
+        value: {},
+        page: ""
     }
 
-    LivingExpand(condition) {
-        if (condition != this.state.expand) {
-            this.setState({ expand: true }, () => {
-                this.calendar.play();
-                this.clock.play();
-                this.location.play();
-                this.task.play();
-                setTimeout(() => {
-                    try {
-                        this.calendar.pause();
-                        this.clock.pause();
-                        this.location.pause();
-                        this.task.pause();
-                    } catch (e) {
-                        console.log(e.message);
-                    }
-                }, 1000)
-            });
+    CleanExpand(condition) {
+
+        if (condition) {
+            this.state.open = false;
+            this.setState({ open: this.state.open });
+            this.state.expand = [];
+            this.setState({ expand: this.state.expand });
         } else {
-            this.setState({ expand: false });
+            this.state.open = true;
+            this.setState({ open: this.state.open });
+            const value = this.state.animation;
+            this.state.expand = value;
+            this.setState({ expand: this.state.expand })
         }
     }
 
-    CleanLiving() {
+    async typeCleanCheck(key, page) {
+        switch (page) {
+            case "Overview":
+                this.demoCleanButton();
+                break;
+            case "Find Job":
+                await this.CleanNow(key);
+            default:
+                break;
+
+        }
+    }
+
+    demoCleanButton() {
         this.clean.play();
         setTimeout(() => {
             this.clean.pause()
-        }, 3000)
+        }, 2000)
+    }
+
+    async CleanNow(key) {
+        try {
+            this.clean.play();
+            setTimeout(async () => {
+                this.clean.pause()
+                this.deleted(key);
+                const value = "" + key;
+                await this.storage.StoreData("cleaning", value);
+            }, 2000)
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+
+
+
+    CleanType(type) {
+        switch (type) {
+            case "Kitchen":
+                return require('../assets/animation/lottie/32854-specific-latent-heat-vaporization-question.json');
+            case "Living":
+                return require('../assets/animation/lottie/37176-living-room.json');
+            case "Wash":
+                return require('../assets/animation/lottie/3138-washing-machine.json');
+            default:
+                break;
+        }
     }
 
     render() {
-        const {
-            image,
-            name,
-            author,
-            date,
-            day,
-            hours,
-            location,
-            cleaner,
-            reward
-        } = this.props.data[1];
         return (
-            <Card style={{ borderRadius: 10, elevation: 0 }}>
+            <Card key={this.state.value.key} style={{ borderRadius: 10, elevation: 0 }}>
                 <CardItem
                     style={{
                         borderRadius: 10,
@@ -88,12 +126,18 @@ export default class Living extends React.Component {
                             <Row style={{ margin: 5 }}>
                                 <Col size={20} style={{ justifyContent: "center", alignItems: "center" }}>
                                     <LottieView
-                                        source={require('../assets/animation/lottie/37176-living-room.json')}
+                                        source={this.CleanType(this.state.value.name)}
                                         style={{ width: 50, height: 50 }}
+                                        autoPlay
                                         ref={animation => {
-                                            this.living = animation;
-                                        }}
-                                    />
+                                            const animated = animation;
+                                            if (animated !== null) {
+                                                animated.play()
+                                                setTimeout(() => {
+                                                    animated.pause()
+                                                }, 2000)
+                                            }
+                                        }} />
                                 </Col>
                                 <Col size={80} style={{
                                     justifyContent: "center",
@@ -105,7 +149,7 @@ export default class Living extends React.Component {
                                 }}>
                                     <Row style={{ alignItems: "center", justifyContent: "center", padding: 10, color: "#ffffff" }}>
                                         <H2>
-                                            {name}{" Room"}
+                                            {this.state.value.name}{" Room"}
                                         </H2>
                                     </Row>
                                     <Row style={{ alignItems: "center", justifyContent: "center", padding: 10, flexDirection: "column", backgroundColor: "#ffffff" }}>
@@ -113,15 +157,21 @@ export default class Living extends React.Component {
                                             <LottieView
                                                 source={require('../assets/animation/lottie/19995-money-stack.json')}
                                                 style={{ width: 50, height: 50 }}
+                                                autoPlay
                                                 ref={animation => {
-                                                    this.reward = animation;
-                                                }}
-                                            />
+                                                    const animated = animation;
+                                                    if (animated !== null) {
+                                                        animated.play()
+                                                        setTimeout(() => {
+                                                            animated.pause()
+                                                        }, 2000)
+                                                    }
+                                                }} />
                                             <Text>Bounty</Text>
                                         </Col>
                                         <Col>
                                             <Text>
-                                                {reward}{' Pesos'}
+                                                {this.state.value.reward}{' Pesos'}
                                             </Text>
                                         </Col>
                                     </Row>
@@ -130,19 +180,21 @@ export default class Living extends React.Component {
                             <Row style={{ margin: 5 }}>
                                 <Col size={20} style={{ justifyContent: "center", alignItems: "center", margin: 5 }}>
                                     <Image
-                                        source={image}
+                                        source={this.state.value.image}
                                         style={{ borderRadius: 100, width: 50, height: 50 }} />
                                 </Col>
                                 <Col size={60} style={{ justifyContent: "center", flexDirection: "row-reverse", margin: 5 }}>
                                     <TouchableOpacity
                                         onPress={() => {
                                             LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
-                                            this.LivingExpand(true);
+                                            this.CleanExpand(this.state.open)
                                         }}
                                         style={{ flexDirection: "row", flex: 1 }}>
                                         <Row style={{
-                                            alignItems: "center", backgroundColor: "#05dee2",
-                                            elevation: 0, borderColor: "white",
+                                            alignItems: "center",
+                                            backgroundColor: "#05dee2",
+                                            elevation: 0,
+                                            borderColor: "white",
                                             borderBottomColor: "#fcc4c3",
                                             borderBottomWidth: 3,
                                             margin: 5
@@ -154,76 +206,101 @@ export default class Living extends React.Component {
                                     </TouchableOpacity>
                                     <Row style={{ alignItems: "center" }}>
                                         <Text>
-                                            {'By '}{author.first}{" "}{author.last}
+                                            {'By '}{this.state.value.author.first}{" "}{this.state.value.author.last}
+
                                         </Text>
                                     </Row>
                                 </Col>
                             </Row>
                             {
-                                this.state.expand && (
+                                this.state.expand.length === 0 ? <Text></Text> : (
                                     <>
                                         <Row style={{ backgroundColor: "#e5f8f5", borderTopLeftRadius: 5, borderTopRightRadius: 5 }}>
                                             <Col size={20} style={{ justifyContent: "center", alignItems: "center" }}>
                                                 <LottieView
                                                     source={require('../assets/animation/lottie/24189-calendar-date.json')}
                                                     style={{ width: 50, height: 50 }}
+                                                    autoPlay
                                                     ref={animation => {
-                                                        this.calendar = animation;
-                                                    }}
-                                                />
+                                                        const animated = animation;
+                                                        if (animated !== null) {
+                                                            animated.play()
+                                                            setTimeout(() => {
+                                                                animated.pause()
+                                                            }, 2000)
+                                                        }
+                                                    }} />
                                             </Col>
                                             <Col size={80} style={{ justifyContent: "center" }}>
                                                 <Text>
-                                                    {date}{' '}{day}
+                                                    {this.state.expand[0].date}{' '}{this.state.expand[0].day}
                                                 </Text>
                                             </Col>
                                         </Row>
-                                        <Row style={{ backgroundColor: "#e4f7fd" }}>
+                                        <Row key={2} style={{ backgroundColor: "#e4f7fd" }}>
                                             <Col size={20} style={{ justifyContent: "center", alignItems: "center" }}>
                                                 <LottieView
                                                     source={require('../assets/animation/lottie/34851-clock-12-hours')}
                                                     style={{ width: 50, height: 50 }}
+                                                    autoPlay
                                                     ref={animation => {
-                                                        this.clock = animation;
-                                                    }}
-                                                />
+                                                        const animated = animation;
+                                                        if (animated !== null) {
+                                                            animated.play()
+                                                            setTimeout(() => {
+                                                                animated.pause()
+                                                            }, 2000)
+                                                        }
+                                                    }} />
                                             </Col>
                                             <Col size={80} style={{ justifyContent: "center" }}>
-                                                <Text>
-                                                    {hours} Hour Clean
-                                                </Text>
+                                                <Text>{this.state.expand[0].hours} Hour Clean</Text>
                                             </Col>
                                         </Row>
-                                        <Row style={{ backgroundColor: "#e5f8f5" }}>
+                                        <Row key={3} style={{ backgroundColor: "#e5f8f5" }}>
                                             <Col size={20} style={{ justifyContent: "center", alignItems: "center" }}>
                                                 <LottieView
                                                     source={require('../assets/animation/lottie/11422-travel-icons-map.json')}
                                                     style={{ width: 50, height: 50 }}
+                                                    autoPlay
                                                     ref={animation => {
-                                                        this.location = animation;
-                                                    }}
-                                                />
+                                                        const animated = animation;
+                                                        if (animated !== null) {
+                                                            animated.play()
+                                                            setTimeout(() => {
+                                                                animated.pause()
+                                                            }, 2000)
+                                                        }
+                                                    }} />
                                             </Col>
                                             <Col size={80} style={{ justifyContent: "center" }}>
                                                 <Text>
-                                                    {location}
+                                                    {this.state.expand[0].location}
                                                 </Text>
                                             </Col>
                                         </Row>
-                                        <TouchableOpacity>
+                                        <TouchableOpacity
+                                            key={4}
+                                            onPress={() => this.dialog.topicDescriptionAndTaskDialogMethod(this.state.expand[0])}
+                                        >
                                             <Row style={{ backgroundColor: "#e4f7fd", borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
                                                 <Col size={20} style={{ justifyContent: "center", alignItems: "center" }}>
                                                     <LottieView
                                                         source={require('../assets/animation/lottie/20542-bag-with-stuff.json')}
                                                         style={{ width: 50, height: 50 }}
+                                                        autoPlay
                                                         ref={animation => {
-                                                            this.task = animation
+                                                            const animated = animation;
+                                                            if (animated !== null) {
+                                                                animated.play()
+                                                                setTimeout(() => {
+                                                                    animated.pause()
+                                                                }, 2000)
+                                                            }
                                                         }} />
                                                 </Col>
                                                 <Col size={80} style={{ justifyContent: "center" }}>
-                                                    <Text>
-                                                        Task
-                                                </Text>
+                                                    <Text>Task</Text>
                                                 </Col>
                                             </Row>
                                         </TouchableOpacity>
@@ -240,14 +317,13 @@ export default class Living extends React.Component {
                                 alignItems: "center"
                             }}>
 
-                            <TouchableOpacity onPress={() => this.CleanLiving()}>
+                            <TouchableOpacity onPress={() => this.typeCleanCheck(this.state.value.id, this.state.page)}>
                                 <LottieView
                                     source={require('../assets/animation/lottie/8489-clean.json')}
                                     style={{ width: 50, height: 50 }}
                                     ref={animation => {
                                         this.clean = animation;
-                                    }}
-                                />
+                                    }} />
                             </TouchableOpacity>
                         </Col>
                         <Col size={20}>
@@ -256,7 +332,7 @@ export default class Living extends React.Component {
                         <Col size={40}>
                             <Button block transparent style={{ elevation: 0 }}>
                                 <Text style={{ borderBottomColor: "#05dee2", borderBottomWidth: 3 }}>
-                                    <Text style={{ color: "#000000" }}>{cleaner} Cleaner</Text>
+                                    <Text style={{ color: "#000000" }}>{this.state.value.cleaner} Cleaner</Text>
                                 </Text>
                             </Button>
                         </Col>
@@ -264,19 +340,5 @@ export default class Living extends React.Component {
                 </CardItem>
             </Card>
         );
-    }
-
-    componentDidMount() {
-        this.living.play(30, 120);
-        this.reward.play(30, 120);
-        setTimeout(() => {
-            try {
-                this.living.pause();
-                this.reward.pause();
-            } catch (e) {
-                console.log(e.message);
-            }
-        }, 1000)
-
     }
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Container, Header, Content, Card, CardItem, Text, Body, Left, Right, Button, Title, Icon } from 'native-base';
 import HomeFooter from '../utilities/home-footer';
 
-export default class Home extends React.Component {
+export default class MadeJob extends React.Component {
     render() {
         return (
             <Container>
@@ -14,16 +14,16 @@ export default class Home extends React.Component {
                     alignItems: "center",
                     alignContent: "center"
                 }}>
-                    <Title>Home</Title>
+                    <Title>Made Job</Title>
                 </Header>
                 <Content padder>
                     <Card>
                         <CardItem header>
-                            <Text>Home</Text>
+                            <Text>Made Job</Text>
                         </CardItem>
                     </Card>
                 </Content>
-                <HomeFooter {...this.props} page="Home" />
+                <HomeFooter {...this.props} page="Made Job" />
             </Container>
         );
     }

@@ -108,7 +108,10 @@ export default class SetupProfile extends React.Component {
         let imgSource = this.getPlatformURI(imagePath);
         return (
             <Container style={{ backgroundColor: "#05dee2" }}>
-                <Header noLeft transparent>
+                <Header
+                    androidStatusBarColor="#05dee2"
+                    noLeft
+                    transparent>
                     <Left style={{ flex: 1, margin: 10 }}>
 
                     </Left>
@@ -193,7 +196,10 @@ export default class SetupProfile extends React.Component {
                                     block
                                     onPress={() => Navigation.push(this.props.componentId, {
                                         component: {
-                                            name: "SelectTask"
+                                            name: "SelectTask",
+                                            passProps: {
+                                                props: this.props
+                                            }
                                         }
                                     })}
                                     style={{ backgroundColor: "#05dee2", elevation: 0 }}>

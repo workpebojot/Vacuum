@@ -15,6 +15,7 @@ export default class Head extends React.Component {
     render() {
         return (
             <Header
+                androidStatusBarColor="#05dee2"
                 noLeft
                 transparent>
                 <Left style={{ flex: 1, margin: 10 }}>

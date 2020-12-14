@@ -1,2 +1,2 @@
-1. Get all deleted keys when mounted or not. Start in line 243
+1. Decorate Footer Navigation for Dynamic Navigation
 2. Find Job and Create Job search

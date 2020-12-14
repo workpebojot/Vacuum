@@ -29,7 +29,10 @@ export default class SignUp extends React.Component {
     render() {
         return (
             <Container style={{ backgroundColor: "#fcc4c3" }}>
-                <Header noLeft transparent>
+                <Header
+                    androidStatusBarColor="#fcc4c3"
+                    noLeft
+                    transparent>
                     <Left style={{ flex: 1, margin: 10 }}>
                         <Pressable
                             android_ripple={{ color: "#fcc4c3", borderless: true }}
@@ -92,10 +95,12 @@ export default class SignUp extends React.Component {
                                     style={{ backgroundColor: "#e4f7fd", elevation: 0 }}
                                     onPress={() => Navigation.push(this.props.componentId, {
                                         component: {
-                                            name: "SetupProfile"
+                                            name: "SetupProfile",
+                                            passProps: {
+                                                props: this.props
+                                            }
                                         }
-                                    })}
-                                >
+                                    })}>
                                     <H3 style={{ color: "#000000" }}>Let's Clean</H3>
                                 </Button>
                             </TouchableOpacity>
@@ -136,7 +141,6 @@ export default class SignUp extends React.Component {
     }
 
     componentDidMount() {
-        Navigation.mergeOptions
         DialogAndroid.alert("",
             `Before signing up, please read our <b>Terms of Service</b> and <b>Privacy Guidelines</b>`,
             {

@@ -28,8 +28,6 @@ import DialogAndroid from 'react-native-dialogs';
 import LottieView from 'lottie-react-native';
 
 export default class SelectTask extends React.Component {
-
-
     render() {
         return (
             <Grid>
@@ -59,7 +57,10 @@ export default class SelectTask extends React.Component {
                             <TouchableOpacity
                                 onPress={() => Navigation.push(this.props.componentId, {
                                     component: {
-                                        name: "FindJob"
+                                        name: "FindJob",
+                                        passProps: {
+                                            props: this.props
+                                        }
                                     }
                                 })}
                                 style={{
@@ -108,7 +109,7 @@ export default class SelectTask extends React.Component {
                     </Col>
                 </Row>
                 <Row size={20} style={{ backgroundColor: "#fcc4c3" }}>
-                    
+
                 </Row>
             </Grid>
         );
