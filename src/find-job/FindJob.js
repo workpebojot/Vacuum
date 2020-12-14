@@ -35,8 +35,13 @@ import {
 } from 'react-native';
 import DialogAndroid from 'react-native-dialogs';
 import LottieView from 'lottie-react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Navigation } from 'react-native-navigation';
+
+import AsyncStorageMethod from './../utilities/method/async-storage';
 import SampleData from '.././data/sample-data';
+import Clean from './../type/clean';
+import TopicDescriptionAndTaskDialog from './../utilities/topic-description-and-task-dialog';
+import HomeFooter from '../utilities/home-footer';
 
 UIManager.setLayoutAnimationEnabledExperimental(true);
 
@@ -47,23 +52,31 @@ export default class FindJob extends React.Component {
         this.state = {
             ...this.state
         }
+        this.storage = new AsyncStorageMethod();
     }
 
     state = {
         search: [],
         expand: false,
-        animation: [],
-        deleted: [],
         searchbutton: [],
+        deleted: [],
         history: [],
-        cancelkeyboard: false
+        cancelkeyboard: Keyboard.dismiss,
+        location: ""
+    }
+
+    deleted(key) {
+        if (this.state.deleted !== undefined) {
+            this.state.deleted.push(key);
+            this.setState({ deleted: this.state.deleted }, () => {
+                console.log(this.state.deleted);
+            });
+        }
     }
 
     SearchEngineTerm(value) {
         this.state.search[0] = value;
-        this.setState({ search: this.state.search }, () => {
-            console.log("Array :", this.state.search)
-        });
+        this.setState({ search: this.state.search });
     }
 
     isFocused() {
@@ -118,18 +131,18 @@ export default class FindJob extends React.Component {
             const SearchTerm = this.state.search.slice(0, 1)[0];
             if (/^[A-Za-z]+$/.test(SearchTerm) || /^[a-zA-Z\s]*$/.test(SearchTerm)) {
                 this.CanonizeString = SearchTerm.toLowerCase().replace(/\s/g, "");
-                await this.StoreData("history", SearchTerm);
+                await this.storage.StoreData("history", SearchTerm);
             }
 
             if (/^\d+$/.test(SearchTerm) || /^[+-]?\d+(\.\d+)?$/.test(SearchTerm)) {
                 if (+SearchTerm === 0) {
                     this.CanonizeNumber = 1;
                     console.log("History: ", SearchTerm);
-                    await this.StoreData("history", "" + SearchTerm);
+                    await this.storage.StoreData("history", "" + SearchTerm);
                 } else {
                     this.CanonizeNumber = +SearchTerm;
                     console.log("History: ", SearchTerm);
-                    await this.StoreData("history", "" + SearchTerm);
+                    await this.storage.StoreData("history", "" + SearchTerm);
                 }
             }
             // Search Author
@@ -287,138 +300,11 @@ export default class FindJob extends React.Component {
         if (this.SearchQueryMapCondition) {
             return (
                 <ListItem avatar key={key} style={{ backgroundColor: "#e4f7fd" }}>
-                    <TouchableOpacity
-                        onPress={() => this.InListButtonSearched(value)}
-                        style={{ flex: 1, flexDirection: "row" }}>
-                        <Left>
-                            <Thumbnail source={value.image} />
-                        </Left>
-                        <Body>
-                            <Text style={{ color: "#000000" }}>{`${value.author.first} ${value.author.last}`}</Text>
-                            <Text note>
-                                <Text style={{ fontWeight: "bold" }}>{value.name}</Text> room with
-                                                    <Text style={{ fontWeight: "bold" }}>{" "}{value.reward} Pesos</Text>{" "}Bounty.{" "}
-                                                    Starting on <Text style={{ fontWeight: "bold" }}>{`${value.date} ${value.day}`}{" "}</Text> at
-                                                    <Text style={{ fontWeight: "bold" }}>{" "}{value.location}</Text>
-                            </Text>
-                        </Body>
-                        <Right style={{ justifyContent: "center", alignItems: "center" }}>
-                            <Button
-                                transparent
-                                style={{
-                                    borderRadius: 100,
-                                    elevation: 0,
-                                    alignSelf: "center",
-                                    margin: 5,
-                                    padding: 5,
-                                    backgroundColor: "#e4f7fd"
-                                }}
-                                onPress={() => this.InListButtonSearchedCleaned(value.id)}>
-                                <LottieView
-                                    source={require('../assets/animation/lottie/8489-clean.json')}
-                                    style={{ width: 50, height: 50 }}
-                                    ref={animation => {
-                                        const translated = String.fromCharCode(97 + value.id);
-                                        const object = {};
-                                        object[translated] = animation;
-                                        this.state.animation.push(object);
-                                    }}
-                                />
-                            </Button>
-                        </Right>
-                    </TouchableOpacity>
+                    <TopicDescriptionAndTaskDialog
+                        deleted={this.deleted.bind(this)}
+                        value={value} />
                 </ListItem>
             );
-        }
-    }
-
-    InListButtonSearched(value) {
-        DialogAndroid.alert(
-            `${value.name} by ${value.author.last}`,
-            `
-                <h5>Description</h5>
-                    <span>
-                        ${value.description}
-                    </span>
-                <h5>Task</h5>
-                    ${value.task.map((task) => {
-                return (` ${task}`)
-            })}
-            `,
-            {
-                contentIsHtml: true
-            }
-        );
-    }
-
-    async InListButtonSearchedCleaned(key) {
-        const translated = String.fromCharCode(97 + key);
-        const animated = this.state.animation.filter(v => v[translated])[0][translated];
-        try {
-            animated.play();
-            setTimeout(() => {
-                animated.pause();
-            }, 3000)
-        } catch (e) {
-            console.log(e.message);
-        }
-
-        this.state.deleted.push(key);
-        this.setState({ deleted: this.state.deleted });
-        const value = "" + key;
-        await this.StoreData("deleted", value);
-        // await AsyncStorage.clear();
-    }
-
-    async StoreData(key, value) {
-        try {
-            const object = await this.GetData(key);
-            if (object != null) {
-                const ParseObject = JSON.parse(object);
-                ParseObject[value] = value;
-                const StringObject = JSON.stringify(ParseObject);
-                await AsyncStorage.setItem(key, StringObject);
-            } else {
-                const deleted = {};
-                deleted[value] = value;
-                const StringObject = JSON.stringify(deleted);
-                await AsyncStorage.setItem(key, StringObject);
-            }
-        } catch (e) {
-            console.log(e.message);
-        }
-    }
-
-    async GetData(key) {
-        try {
-            const value = await AsyncStorage.getItem(key);
-            if (value !== null) {
-                return value;
-            }
-        } catch (e) {
-            console.log(e.message);
-        }
-    }
-
-    async GetAllKeys() {
-        let keys = [];
-        try {
-            keys = await AsyncStorage.getAllKeys();
-        } catch (e) {
-
-        }
-        if (keys.length !== 0) {
-            return keys;
-        }
-    }
-
-    async RemoveValue(key) {
-        try {
-            this.state.history = [];
-            this.setState({ history: this.state.history });
-            await AsyncStorage.removeItem(key)
-        } catch (e) {
-            // remove error
         }
     }
 
@@ -449,7 +335,7 @@ export default class FindJob extends React.Component {
                                     this.isBackSpaced();
                                 }
                             }}
-                            autoFocus={false}
+                            autoFocus={true}
                             onSubmitEditing={this.state.cancelkeyboard}
                             placeholder="Search"
                             onChangeText={(value) => this.SearchEngineTerm(value)} />
@@ -512,7 +398,7 @@ export default class FindJob extends React.Component {
                                                     alignItems: "center",
                                                     justifyContent: "center"
                                                 }}
-                                                onPress={() => this.RemoveValue("history")}>
+                                                onPress={() => this.storage.RemoveValue("history")}>
                                                 <Text>Press here to clear history</Text>
                                             </TouchableOpacity>
                                         </ListItem>
@@ -543,118 +429,53 @@ export default class FindJob extends React.Component {
                         }}>
                         <Grid>
                             <Row style={{ justifyContent: "center", alignItems: "center", padding: 10 }}>
-                                <Text>Popular in your location</Text>
+                                <Text>{this.state.location == "" ? "Loading..." : `Popular in ${this.state.location}`}</Text>
                             </Row>
                         </Grid>
-                        <Card transparent style={{ borderRadius: 10, padding: 10, backgroundColor: "#e5f8f5" }}>
-                            <CardItem style={{ borderRadius: 10, padding: 10, flexDirection: "column" }}>
-                                <Body style={{ padding: 10, backgroundColor: "#e4f7fd", borderBottomRightRadius: 10, borderBottomLeftRadius: 10 }}>
-                                    <Item inlineLabel style={{ backgroundColor: "#e5f8f5", borderBottomColor: "#05dee2", borderBottomWidth: 3 }}>
-                                        <Label>First Name</Label>
-                                        <Input maxLength={20} />
-                                    </Item>
-                                    <Item inlineLabel last style={{ backgroundColor: "#e5f8f5", borderBottomColor: "#fcc4c3", borderBottomWidth: 3 }}>
-                                        <Label>Last Name</Label>
-                                        <Input maxLength={20} />
-                                    </Item>
-                                    <Grid>
-                                        <Col>
-                                            <Item picker style={{ backgroundColor: "#e5f8f5", borderBottomColor: "#05dee2", borderBottomWidth: 3 }}>
-                                                <Icon name='md-location-outline' />
-                                                <Icon name='information-circle' />
-                                            </Item>
-                                        </Col>
-                                    </Grid>
-                                    <Text>
-                                        {'\n'}
-                                    </Text>
-                                    <Button
-                                        rounded
-                                        block
-                                        onPress={() => Navigation.push(this.props.componentId, {
-                                            component: {
-                                                name: "SelectTask"
-                                            }
-                                        })}
-                                        style={{ backgroundColor: "#05dee2", elevation: 0 }}>
-                                        <H3 style={{ color: "#FFFFFF" }}>Ready!</H3>
-                                    </Button>
-                                </Body>
-                            </CardItem>
-                        </Card>
-                        <Card transparent style={{ borderRadius: 10, padding: 10, backgroundColor: "#e5f8f5" }}>
-                            <CardItem style={{ borderRadius: 10, padding: 10, flexDirection: "column" }}>
-                                <Body style={{ padding: 10, backgroundColor: "#e4f7fd", borderBottomRightRadius: 10, borderBottomLeftRadius: 10 }}>
-                                    <Item inlineLabel style={{ backgroundColor: "#e5f8f5", borderBottomColor: "#05dee2", borderBottomWidth: 3 }}>
-                                        <Label>First Name</Label>
-                                        <Input maxLength={20} />
-                                    </Item>
-                                    <Item inlineLabel last style={{ backgroundColor: "#e5f8f5", borderBottomColor: "#fcc4c3", borderBottomWidth: 3 }}>
-                                        <Label>Last Name</Label>
-                                        <Input maxLength={20} />
-                                    </Item>
-                                    <Grid>
-                                        <Col>
-                                            <Item picker style={{ backgroundColor: "#e5f8f5", borderBottomColor: "#05dee2", borderBottomWidth: 3 }}>
-                                                <Icon name='md-location-outline' />
-                                                <Icon name='information-circle' />
-                                            </Item>
-                                        </Col>
-                                    </Grid>
-                                    <Text>
-                                        {'\n'}
-                                    </Text>
-                                    <Button
-                                        rounded
-                                        block
-                                        onPress={() => Navigation.push(this.props.componentId, {
-                                            component: {
-                                                name: "SelectTask"
-                                            }
-                                        })}
-                                        style={{ backgroundColor: "#05dee2", elevation: 0 }}>
-                                        <H3 style={{ color: "#FFFFFF" }}>Ready!</H3>
-                                    </Button>
-                                </Body>
-                            </CardItem>
-                        </Card>
+                        {
+                            SampleData.map((value, key) => {
+                                if (this.state.deleted.length !== 0) {
+                                    this.PopularTopicCondition = this.state.deleted.every(v => v != value.id);
+                                } else {
+                                    this.PopularTopicCondition = true;
+                                }
+                                if (this.PopularTopicCondition) {
+                                    if ((value.location === "Paltic")) {
+                                        const page = "Find Job";
+                                        this.state.location = value.location;
+                                        return <Clean
+                                            page={page}
+                                            deleted={this.deleted.bind(this)}
+                                            key={key}
+                                            data={value} />;
+                                    }
+                                }
+                            })
+                        }
                     </Content>
                 )}
 
-                <Footer>
-                    <FooterTab style={{ backgroundColor: "#05dee2" }}>
-                        <Button badge vertical>
-                            <Badge><Text>2</Text></Badge>
-                            <Icon name="apps" style={{ color: "#ffffff" }} />
-                            <Text style={{ color: "#ffffff" }}>Apps</Text>
-                        </Button>
-                        <Button vertical>
-                            <Icon name="camera" style={{ color: "#ffffff" }} />
-                            <Text style={{ color: "#ffffff" }}>Camera</Text>
-                        </Button>
-                        <Button active badge vertical>
-                            <Badge><Text>51</Text></Badge>
-                            <Icon active name="navigate" style={{ color: "#ffffff" }} />
-                            <Text style={{ color: "#ffffff" }}>Navigate</Text>
-                        </Button>
-                        <Button vertical>
-                            <Icon name="person" style={{ color: "#ffffff" }} />
-                            <Text style={{ color: "#ffffff" }}>Contact</Text>
-                        </Button>
-                    </FooterTab>
-                </Footer>
+                <HomeFooter {...this.props} page="Find Job" />
             </Container>
         );
     }
 
     async componentDidMount() {
         try {
-            const value = await this.GetAllKeys();
+            this.setState({ page: "Find Job" });
+            if (SampleData.length !== 0) {
+                // await this.storage.Clear();
+                const data = SampleData.filter(v => v.cleaner > 20);
+                data.forEach(v => {
+                    console.log(v.cleaner);
+                });
+            }
+            const value = await this.storage.GetAllKeys();
             if (value.length !== 0) {
-                const deleted = value.filter(v => v == "deleted")[0];
+                const deleted = value.filter(v => v == "cleaning")[0];
                 const history = value.filter(v => v == "history")[0];
                 if (deleted != null) {
-                    const DeletedValue = await this.GetData(deleted);
+                    const DeletedValue = await this.storage.GetData(deleted);
                     JSON.parse(DeletedValue, (key, value) => {
                         if (typeof value == "string") {
                             this.state.deleted.push(value)
@@ -664,7 +485,7 @@ export default class FindJob extends React.Component {
                 }
 
                 if (history != null) {
-                    const HistoryValue = await this.GetData(history);
+                    const HistoryValue = await this.storage.GetData(history);
                     JSON.parse(HistoryValue, (key, value) => {
                         if (typeof value == "string") {
                             this.state.history.push(value)
