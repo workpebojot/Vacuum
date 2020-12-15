@@ -137,7 +137,10 @@ export default class CleanedJob extends React.Component {
                                     for (let i = 0, l = this.state.cleaned.length; i <= l; i++) {
                                         if (this.state.cleaned[i] == value.id) {
                                             this.state.data.push(value);
-                                            this.setState({ data: this.state.data })
+                                            const stateArray = this.state.data;
+                                            const setArray = new Set(stateArray);
+                                            const newArray = [...setArray];
+                                            this.setState({ data: newArray });
                                         }
                                     }
                                 })
