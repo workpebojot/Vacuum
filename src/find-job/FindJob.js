@@ -335,7 +335,7 @@ export default class FindJob extends React.Component {
                                     this.isBackSpaced();
                                 }
                             }}
-                            autoFocus={true}
+                            autoFocus={false}
                             onSubmitEditing={this.state.cancelkeyboard}
                             placeholder="Search"
                             onChangeText={(value) => this.SearchEngineTerm(value)} />
