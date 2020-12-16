@@ -2,6 +2,11 @@ import * as React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class AsyncStorageMethod extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
     async StoreData(key, value) {
         try {
             const object = await this.GetData(key);
@@ -46,11 +51,21 @@ export default class AsyncStorageMethod extends React.Component {
 
     async RemoveValue(key) {
         try {
-            this.state.history = [];
-            this.setState({ history: this.state.history });
             await AsyncStorage.removeItem(key)
         } catch (e) {
             // remove error
+        }
+    }
+
+    async removedCleanedJob(key, value) {
+        const object = await this.GetData(key);
+        const ParseObject = JSON.parse(object);
+        if (Object.keys(ParseObject).length === 0) {
+            await this.RemoveValue(key);
+        } else {
+            delete ParseObject[value];
+            const StringObject = JSON.stringify(ParseObject);
+            await AsyncStorage.setItem(key, StringObject);
         }
     }
 

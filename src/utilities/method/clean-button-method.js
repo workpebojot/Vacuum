@@ -7,6 +7,7 @@ export default class CleanButonMethod extends React.Component {
         super(props);
         this.storage = new AsyncStorageMethod();
         this.animation = props.animation;
+        this.deleted = props.deleted;
     }
 
     async findJobTopicCleanButton(key) {
