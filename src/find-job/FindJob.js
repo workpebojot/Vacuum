@@ -62,16 +62,20 @@ export default class FindJob extends React.Component {
         deleted: [],
         history: [],
         cancelkeyboard: Keyboard.dismiss,
-        location: ""
+        data: []
     }
 
     deleted(key) {
         if (this.state.deleted !== undefined) {
             this.state.deleted.push(key);
-            this.setState({ deleted: this.state.deleted }, () => {
-                console.log(this.state.deleted);
-            });
+            this.setState({ deleted: this.state.deleted });
         }
+    }
+
+    deleteHistory(key) {
+        this.state.history = [];
+        this.setState({ history: this.state.history });
+        this.storage.RemoveValue(key);
     }
 
     SearchEngineTerm(value) {
@@ -146,7 +150,7 @@ export default class FindJob extends React.Component {
                 }
             }
             // Search Author
-            const AuthorFirst = SampleData.filter((value) => {
+            const AuthorFirst = this.state.data.filter((value) => {
                 const AuthorFirst = value.author.first;
                 const LowerAuthorFirstAndRemoveSpace = AuthorFirst.toLocaleLowerCase().replace(/\s/g, "");
                 if (LowerAuthorFirstAndRemoveSpace === this.CanonizeString) {
@@ -155,7 +159,7 @@ export default class FindJob extends React.Component {
             }) || 1;
             const FirstAuthor = AuthorFirst.length !== 0 ? AuthorFirst[0].author.first.toLocaleLowerCase().replace(/\s/g, "") : false;
 
-            const AuthorLast = SampleData.filter((value) => {
+            const AuthorLast = this.state.data.filter((value) => {
                 const AuthorLast = value.author.last;
                 const LowerAuthorLastAndRemoveSpace = AuthorLast.toLocaleLowerCase().replace(/\s/g, "");
                 if (LowerAuthorLastAndRemoveSpace === this.CanonizeString) {
@@ -164,7 +168,7 @@ export default class FindJob extends React.Component {
             }) || 1;
             const LastAuthor = AuthorLast.length !== 0 ? AuthorLast[0].author.last.toLocaleLowerCase().replace(/\s/g, "") : false;
 
-            const Author = SampleData.filter((value) => {
+            const Author = this.state.data.filter((value) => {
                 const author = value.author;
                 const AuthorFirst = value.author.first;
                 const AuthorLast = value.author.last;
@@ -178,7 +182,7 @@ export default class FindJob extends React.Component {
             const author = Author.length !== 0 ? `${Author[0].author.first.toLocaleLowerCase().replace(/\s/g, "")}${Author[0].author.last.toLocaleLowerCase().replace(/\s/g, "")}` : false
 
             // Search Location
-            const Location = SampleData.filter((value) => {
+            const Location = this.state.data.filter((value) => {
                 const location = value.location;
                 const LowerLocationAndRemoveSpace = location.toLocaleLowerCase().replace(/\s/g, "");
                 if (LowerLocationAndRemoveSpace === this.CanonizeString) {
@@ -188,7 +192,7 @@ export default class FindJob extends React.Component {
             const location = Location.length !== 0 ? Location[0].location.toLocaleLowerCase().replace(/\s/g, "") : false;
 
             // Search Reward
-            const Reward = SampleData.filter((value) => {
+            const Reward = this.state.data.filter((value) => {
                 const reward = value.reward;
                 if (value.reward == this.CanonizeNumber) {
                     return reward;
@@ -196,7 +200,7 @@ export default class FindJob extends React.Component {
             }) || 1;
             const reward = Reward.length !== 0 ? Reward[0].reward : false;
             // Search Name
-            const Name = SampleData.filter((value) => {
+            const Name = this.state.data.filter((value) => {
                 const name = value.name;
                 const LowerNameAndRemoveSpace = name.toLocaleLowerCase().replace(/\s/g, "");
                 if (LowerNameAndRemoveSpace === this.CanonizeString) {
@@ -245,7 +249,7 @@ export default class FindJob extends React.Component {
 
     SearchQuery(ValueInSearchInput) {
         this.ValueInSearchInput = ValueInSearchInput;
-        return SampleData.filter(this.SearchQueryFilter.bind(this)).map(this.SearchQueryMap.bind(this));
+        return this.state.data.filter(this.SearchQueryFilter.bind(this)).map(this.SearchQueryMap.bind(this));
     }
 
     SearchQueryFilter(ValueInStorage) {
@@ -335,7 +339,7 @@ export default class FindJob extends React.Component {
                                     this.isBackSpaced();
                                 }
                             }}
-                            autoFocus={true}
+                            autoFocus={false}
                             onSubmitEditing={this.state.cancelkeyboard}
                             placeholder="Search"
                             onChangeText={(value) => this.SearchEngineTerm(value)} />
@@ -398,7 +402,7 @@ export default class FindJob extends React.Component {
                                                     alignItems: "center",
                                                     justifyContent: "center"
                                                 }}
-                                                onPress={() => this.storage.RemoveValue("history")}>
+                                                onPress={() => this.deleteHistory("history")}>
                                                 <Text>Press here to clear history</Text>
                                             </TouchableOpacity>
                                         </ListItem>
@@ -429,26 +433,19 @@ export default class FindJob extends React.Component {
                         }}>
                         <Grid>
                             <Row style={{ justifyContent: "center", alignItems: "center", padding: 10 }}>
-                                <Text>{this.state.location == "" ? "Loading..." : `Popular in ${this.state.location}`}</Text>
+                                <Text>Most Popular</Text>
                             </Row>
                         </Grid>
                         {
-                            SampleData.map((value, key) => {
-                                if (this.state.deleted.length !== 0) {
-                                    this.PopularTopicCondition = this.state.deleted.every(v => v != value.id);
-                                } else {
-                                    this.PopularTopicCondition = true;
-                                }
-                                if (this.PopularTopicCondition) {
-                                    if ((value.location === "Paltic")) {
-                                        const page = "Find Job";
-                                        this.state.location = value.location;
-                                        return <Clean
-                                            page={page}
-                                            deleted={this.deleted.bind(this)}
-                                            key={key}
-                                            data={value} />;
-                                    }
+                            this.state.data.map((value, key) => {
+                                const condition = this.state.deleted.every(v => v != value.id);
+                                const page = "Find Job";
+                                if (condition) {
+                                    return <Clean
+                                        page={page}
+                                        deleted={this.deleted.bind(this)}
+                                        key={key}
+                                        data={value} />;
                                 }
                             })
                         }
@@ -462,28 +459,31 @@ export default class FindJob extends React.Component {
 
     async componentDidMount() {
         try {
-            this.setState({ page: "Find Job" });
-            if (SampleData.length !== 0) {
-                // await this.storage.Clear();
-                const data = SampleData.filter(v => v.cleaner > 20);
-                data.forEach(v => {
-                    console.log(v.cleaner);
-                });
-            }
+            await this.storage.Clear();
             const value = await this.storage.GetAllKeys();
-            if (value.length !== 0) {
+            if ((value !== undefined) && value.length !== 0) {
                 const deleted = value.filter(v => v == "cleaning")[0];
-                const history = value.filter(v => v == "history")[0];
                 if (deleted != null) {
                     const DeletedValue = await this.storage.GetData(deleted);
                     JSON.parse(DeletedValue, (key, value) => {
                         if (typeof value == "string") {
                             this.state.deleted.push(value)
-                            this.setState({ deleted: this.state.deleted });
+                            this.setState({ deleted: this.state.deleted }, () => {
+                                SampleData.map(value => {
+                                    const condition = this.state.deleted.every(v => v != value.id);
+                                    if (condition) {
+                                        if (value.location === "Paltic") {
+                                            this.state.data.push(value);
+                                            this.setState({ data: this.state.data });
+                                        }
+                                    }
+                                });
+                            });
                         }
                     });
                 }
 
+                const history = value.filter(v => v == "history")[0];
                 if (history != null) {
                     const HistoryValue = await this.storage.GetData(history);
                     JSON.parse(HistoryValue, (key, value) => {
@@ -495,7 +495,15 @@ export default class FindJob extends React.Component {
                 }
             } else {
                 this.state.deleted = [];
-                this.setState({ deleted: this.state.deleted });
+                this.setState({ deleted: this.state.deleted }, () => {
+                    SampleData.map(value => {
+                        if (value.location === "Paltic") {
+                            this.state.data.push(value);
+                            this.setState({ data: this.state.data });
+                        }
+                    });
+                });
+
             }
         } catch (e) {
 
