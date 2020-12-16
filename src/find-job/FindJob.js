@@ -470,11 +470,16 @@ export default class FindJob extends React.Component {
                             this.state.deleted.push(value)
                             this.setState({ deleted: this.state.deleted }, () => {
                                 SampleData.map(value => {
-                                    const condition = this.state.deleted.every(v => v != value.id);
-                                    if (condition) {
-                                        if (value.location === "Paltic") {
-                                            this.state.data.push(value);
-                                            this.setState({ data: this.state.data });
+                                    for (let i = 0, l = this.state.deleted.length; i <= l; i++) {
+                                        if (this.state.deleted[i] == value.id) {
+                                            if (value.location === "Paltic") {
+                                                this.state.data.push(value);
+                                                const stateArray = this.state.data;
+                                                const setArray = new Set(stateArray);
+                                                const newArray = [...setArray];
+                                                this.state.data = newArray;
+                                                this.setState({ data: this.state.data });
+                                            }
                                         }
                                     }
                                 });
