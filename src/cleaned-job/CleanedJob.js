@@ -35,19 +35,29 @@ export default class CleanedJob extends React.Component {
 
     deleteCleaned(item, key) {
         if (this.state.cleaned.length === 1) {
-            console.log("DELETED 1");
             this.state.cleaned = [];
             this.setState({ cleaned: this.state.cleaned }, () => {
-                this.storage.RemoveValue(key)
+                this.storage.removedCleanedJob(key, item);
             });
         } else {
-            console.log("DELETED 2");
-            const array = this.state.cleaned;
-            const position = array.indexOf(item);
-            array.splice(position, 1);
-            this.setState({ cleaned: array }, () => {
-                this.storage.RemoveValue(key);
+            const stateArray = this.state.cleaned;
+            const stateData = this.state.data;
+
+            const indexArray = [...stateArray];
+            const indexData = [...stateData];
+
+            const items = "" + item
+            const position = indexArray.indexOf(items);
+            indexArray.splice(position, 1);
+            this.state.cleaned = indexArray;
+            this.setState({ cleaned: this.state.cleaned }, () => {
+                console.log("Key: ", key, "Item: ", item);
+                this.storage.removedCleanedJob(key, item);
             });
+
+            const newData = indexData.filter(value => value.id != item);
+            this.state.data = newData;
+            this.setState({ data: this.state.data });
         }
     }
 
@@ -140,7 +150,8 @@ export default class CleanedJob extends React.Component {
                                             const stateArray = this.state.data;
                                             const setArray = new Set(stateArray);
                                             const newArray = [...setArray];
-                                            this.setState({ data: newArray });
+                                            this.state.data = newArray;
+                                            this.setState({ data: this.state.data });
                                         }
                                     }
                                 })
