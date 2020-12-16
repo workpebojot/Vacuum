@@ -76,7 +76,7 @@ export default class Clean extends React.Component {
         try {
             this.clean.play();
             setTimeout(async () => {
-                this.clean.pause()
+                this.clean.pause();
                 this.deleted(key);
                 const value = "" + key;
                 await this.storage.StoreData("cleaning", value);

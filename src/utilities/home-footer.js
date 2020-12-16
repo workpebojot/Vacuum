@@ -6,6 +6,12 @@ export default class HomeFooter extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.current = props.current;
+        console.log("current: ", this.current);
+        this.back = props.back;
+        console.log("back: ", this.back)
+
         this.page = props.page;
         this.enter = (this.page == "Cleaned Job");
         this.find = (this.page == "Find Job");
@@ -14,136 +20,161 @@ export default class HomeFooter extends React.Component {
         this.job = (this.page == "Made Job");
     }
 
-    Navigate(type) {
-        this.enter = (type === "Cleaned Job");
-        this.find = (type === "Find Job");
-        this.home = (type === "Home");
-        this.create = (type === "Create Job");
-        this.job = (type === "Made Job");
+    Navigate(type, back) {
+        if (this.back === type) {
+            console.log("Back!")
+            return Navigation.pop(this.props.componentId)
+        } else {
+            this.enter = (type === "Cleaned Job");
+            this.find = (type === "Find Job");
+            this.home = (type === "Home");
+            this.create = (type === "Create Job");
+            this.job = (type === "Made Job");
 
-        if (this.enter) {
-            return Navigation.push(this.props.componentId, {
-                component: {
-                    name: "CleanedJob",
-                    options: {
-                        topBar: {
-                            visible: false
+            if ((this.current !== type) && this.enter) {
+                return Navigation.push(this.props.componentId, {
+                    component: {
+                        name: "CleanedJob",
+                        passProps: {
+                            current: "Cleaned Job",
+                            back: back
                         },
-                        animations: {
-                            push: {
-                                content: {
-                                    alpha: {
-                                        from: 0,
-                                        to: 1,
-                                        duration: 100,
-                                    }
-                                },
-                                waitForRender: true
+                        options: {
+                            topBar: {
+                                visible: false
+                            },
+                            animations: {
+                                push: {
+                                    content: {
+                                        alpha: {
+                                            from: 0,
+                                            to: 1,
+                                            duration: 100,
+                                        }
+                                    },
+                                    waitForRender: true
+                                }
                             }
                         }
                     }
-                }
-            });
-        }
+                });
+            }
 
-        if (this.find) {
-            return Navigation.push(this.props.componentId, {
-                component: {
-                    name: "FindJob",
-                    options: {
-                        topBar: {
-                            visible: false
+            if ((this.current !== type) && this.find) {
+                return Navigation.push(this.props.componentId, {
+                    component: {
+                        name: "FindJob",
+                        passProps: {
+                            current: "Find Job",
+                            back: back
                         },
-                        animations: {
-                            push: {
-                                content: {
-                                    alpha: {
-                                        from: 0,
-                                        to: 1,
-                                        duration: 100,
-                                    }
-                                },
-                                waitForRender: true
+                        options: {
+                            topBar: {
+                                visible: false
+                            },
+                            animations: {
+                                push: {
+                                    content: {
+                                        alpha: {
+                                            from: 0,
+                                            to: 1,
+                                            duration: 100,
+                                        }
+                                    },
+                                    waitForRender: true
+                                }
                             }
                         }
                     }
-                }
-            });
-        }
+                });
+            }
 
-        if (this.home) {
-            return Navigation.push(this.props.componentId, {
-                component: {
-                    name: "Home",
-                    options: {
-                        topBar: {
-                            visible: false
+            if ((this.current !== type) && this.home) {
+                return Navigation.push(this.props.componentId, {
+                    component: {
+                        name: "Home",
+                        passProps: {
+                            current: "Home",
+                            back: back
                         },
-                        animations: {
-                            push: {
-                                content: {
-                                    alpha: {
-                                        from: 0,
-                                        to: 1,
-                                        duration: 100,
-                                    }
-                                },
-                                waitForRender: true
+                        options: {
+                            topBar: {
+                                visible: false
+                            },
+                            animations: {
+                                push: {
+                                    content: {
+                                        alpha: {
+                                            from: 0,
+                                            to: 1,
+                                            duration: 100,
+                                        }
+                                    },
+                                    waitForRender: true
+                                }
                             }
                         }
                     }
-                }
-            });
-        }
+                });
+            }
 
-        if (this.create) {
-            return Navigation.push(this.props.componentId, {
-                component: {
-                    name: "CreateJob",
-                    options: {
-                        topBar: {
-                            visible: false
+            if ((this.current !== type) && this.create) {
+                return Navigation.push(this.props.componentId, {
+                    component: {
+                        name: "CreateJob",
+                        passProps: {
+                            current: "Create Job",
+                            back: back
                         },
-                        animations: {
-                            push: {
-                                content: {
-                                    alpha: {
-                                        from: 0,
-                                        to: 1,
-                                        duration: 100,
-                                    }
-                                },
-                                waitForRender: true
+                        options: {
+                            topBar: {
+                                visible: false
+                            },
+                            animations: {
+                                push: {
+                                    content: {
+                                        alpha: {
+                                            from: 0,
+                                            to: 1,
+                                            duration: 100,
+                                        }
+                                    },
+                                    waitForRender: true
+                                }
                             }
                         }
                     }
-                }
-            });
-        }
+                });
+            }
 
-        if (this.job) {
-            return Navigation.push(this.props.componentId, {
-                component: {
-                    name: "MadeJob",
-                    options: {
-                        topBar: {
-                            visible: false
+            if ((this.current !== type) && this.job) {
+                return Navigation.push(this.props.componentId, {
+                    component: {
+                        name: "MadeJob",
+                        passProps: {
+                            current: "Made Job",
+                            back: back
                         },
-                        animations: {
-                            push: {
-                                content: {
-                                    alpha: {
-                                        from: 0,
-                                        to: 1,
-                                        duration: 100,
-                                    }
-                                },
-                                waitForRender: true
+                        options: {
+                            topBar: {
+                                visible: false
+                            },
+                            animations: {
+                                push: {
+                                    content: {
+                                        alpha: {
+                                            from: 0,
+                                            to: 1,
+                                            duration: 100,
+                                        }
+                                    },
+                                    waitForRender: true
+                                }
                             }
                         }
                     }
-                }
-            });
+                });
+            }
         }
     }
 
@@ -157,7 +188,7 @@ export default class HomeFooter extends React.Component {
                         style={{ backgroundColor: this.enter ? "#e4f7fd" : "" }}
                         badge={false}
                         vertical
-                        onPress={() => this.Navigate("Cleaned Job")}>
+                        onPress={() => this.Navigate("Cleaned Job", this.page)}>
                         {/* <Badge><Text>2</Text></Badge> */}
                         <Icon
                             name="md-checkbox-outline"
@@ -174,7 +205,7 @@ export default class HomeFooter extends React.Component {
                         style={{ backgroundColor: this.find ? "#e4f7fd" : "" }}
                         badge={false}
                         vertical
-                        onPress={() => this.Navigate("Find Job")}>
+                        onPress={() => this.Navigate("Find Job", this.page)}>
                         <Icon
                             type="SimpleLineIcons"
                             name="magnifier"
@@ -191,7 +222,7 @@ export default class HomeFooter extends React.Component {
                         style={{ backgroundColor: this.home ? "#e4f7fd" : "" }}
                         badge={false}
                         vertical
-                        onPress={() => this.Navigate("Home")}>
+                        onPress={() => this.Navigate("Home", this.page)}>
                         {/* <Badge><Text>51</Text></Badge> */}
                         <Icon
                             name="md-home-outline"
@@ -208,7 +239,7 @@ export default class HomeFooter extends React.Component {
                         style={{ backgroundColor: this.create ? "#e4f7fd" : "" }}
                         badge={false}
                         vertical
-                        onPress={() => this.Navigate("Create Job")}>
+                        onPress={() => this.Navigate("Create Job", this.page)}>
                         <Icon
                             type="MaterialCommunityIcons"
                             name="plus-box-outline"
@@ -225,7 +256,7 @@ export default class HomeFooter extends React.Component {
                         style={{ backgroundColor: this.job ? "#e4f7fd" : "" }}
                         badge={false}
                         vertical
-                        onPress={() => this.Navigate("Made Job")}>
+                        onPress={() => this.Navigate("Made Job", this.page)}>
                         <Icon
                             name="md-briefcase-outline"
                             style={{ color: this.job ? "#fcc4c3" : "#ffffff" }} />
