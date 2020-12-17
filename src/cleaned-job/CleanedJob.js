@@ -64,14 +64,16 @@ export default class CleanedJob extends React.Component {
     render() {
         return (
             <Container>
-                <Header style={{
-                    backgroundColor: "#05dee2",
-                    marginTop: "7.5%",
-                    elevation: 0,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    alignContent: "center"
-                }}>
+                <Header
+                    androidStatusBarColor="#05dee2"
+                    style={{
+                        backgroundColor: "#05dee2",
+                        marginTop: "7.5%",
+                        elevation: 0,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        alignContent: "center"
+                    }}>
                     <Title>Cleaned Job</Title>
                 </Header>
                 {
