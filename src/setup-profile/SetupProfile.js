@@ -213,7 +213,7 @@ export default class SetupProfile extends React.Component {
         );
     }
 
-    /* componentDidMount() {
+    componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
     }
 
@@ -223,5 +223,5 @@ export default class SetupProfile extends React.Component {
 
     onBackPress = () => {
         return true;
-    } */
+    }
 }
