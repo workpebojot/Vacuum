@@ -31,7 +31,8 @@ import {
     TouchableOpacity,
     LayoutAnimation,
     UIManager,
-    Keyboard
+    Keyboard,
+    BackHandler
 } from 'react-native';
 import DialogAndroid from 'react-native-dialogs';
 import LottieView from 'lottie-react-native';
@@ -54,6 +55,7 @@ export default class FindJob extends React.Component {
         }
         this.storage = new AsyncStorageMethod();
     }
+
 
     state = {
         search: [],
@@ -459,7 +461,8 @@ export default class FindJob extends React.Component {
 
     async componentDidMount() {
         try {
-            await this.storage.Clear();
+            BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+            // await this.storage.Clear();
             const value = await this.storage.GetAllKeys();
             if ((value !== undefined) && value.length !== 0) {
                 const deleted = value.filter(v => v == "cleaning")[0];
@@ -513,5 +516,13 @@ export default class FindJob extends React.Component {
         } catch (e) {
 
         }
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+    }
+
+    onBackPress = () => {
+        return true;
     }
 }
