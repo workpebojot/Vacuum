@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { BackHandler } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Text, Body, Left, Right, Button, Title, Icon } from 'native-base';
 import HomeFooter from '../utilities/home-footer';
 
@@ -27,4 +28,17 @@ export default class Home extends React.Component {
             </Container>
         );
     }
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+    }
+
+    onBackPress = () => {
+        return true;
+    }
+
 }
