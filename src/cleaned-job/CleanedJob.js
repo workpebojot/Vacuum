@@ -35,7 +35,6 @@ export default class CleanedJob extends React.Component {
     }
 
     deleteCleaned(key, item) {
-        console.log("key: ", key, "item: ", item);
         if (this.state.cleaned.length === 1) {
             this.state.cleaned = [];
             this.setState({ cleaned: this.state.cleaned }, () => {
@@ -53,7 +52,6 @@ export default class CleanedJob extends React.Component {
             indexArray.splice(position, 1);
             this.state.cleaned = indexArray;
             this.setState({ cleaned: this.state.cleaned }, () => {
-                console.log("Key: ", key, "Item: ", item);
                 this.storage.removedCleanedJob(key, item);
             });
 

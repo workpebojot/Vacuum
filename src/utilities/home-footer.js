@@ -185,7 +185,7 @@ export default class HomeFooter extends React.Component {
 
                     <Button
                         active={this.enter ? true : false}
-                        style={{ backgroundColor: this.enter ? "#e4f7fd" : "" }}
+                        style={{ backgroundColor: this.enter ? "#e4f7fd" : "#05dee2" }}
                         badge={false}
                         vertical
                         onPress={() => this.Navigate("Cleaned Job", this.page)}>
@@ -202,7 +202,7 @@ export default class HomeFooter extends React.Component {
 
                     <Button
                         active={this.find ? true : false}
-                        style={{ backgroundColor: this.find ? "#e4f7fd" : "" }}
+                        style={{ backgroundColor: this.find ? "#e4f7fd" : "#05dee2" }}
                         badge={false}
                         vertical
                         onPress={() => this.Navigate("Find Job", this.page)}>
@@ -219,7 +219,7 @@ export default class HomeFooter extends React.Component {
 
                     <Button
                         active={this.home ? true : false}
-                        style={{ backgroundColor: this.home ? "#e4f7fd" : "" }}
+                        style={{ backgroundColor: this.home ? "#e4f7fd" : "#05dee2" }}
                         badge={false}
                         vertical
                         onPress={() => this.Navigate("Home", this.page)}>
@@ -236,7 +236,7 @@ export default class HomeFooter extends React.Component {
 
                     <Button
                         active={this.create ? true : false}
-                        style={{ backgroundColor: this.create ? "#e4f7fd" : "" }}
+                        style={{ backgroundColor: this.create ? "#e4f7fd" : "#05dee2" }}
                         badge={false}
                         vertical
                         onPress={() => this.Navigate("Create Job", this.page)}>
@@ -253,7 +253,7 @@ export default class HomeFooter extends React.Component {
 
                     <Button
                         active={this.job ? true : false}
-                        style={{ backgroundColor: this.job ? "#e4f7fd" : "" }}
+                        style={{ backgroundColor: this.job ? "#e4f7fd" : "#05dee2" }}
                         badge={false}
                         vertical
                         onPress={() => this.Navigate("Made Job", this.page)}>
