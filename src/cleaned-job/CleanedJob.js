@@ -15,6 +15,7 @@ import {
     List,
     ListItem
 } from 'native-base';
+import { BackHandler } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import HomeFooter from '../utilities/home-footer';
@@ -33,7 +34,8 @@ export default class CleanedJob extends React.Component {
         data: []
     }
 
-    deleteCleaned(item, key) {
+    deleteCleaned(key, item) {
+        console.log("key: ", key, "item: ", item);
         if (this.state.cleaned.length === 1) {
             this.state.cleaned = [];
             this.setState({ cleaned: this.state.cleaned }, () => {
@@ -99,7 +101,7 @@ export default class CleanedJob extends React.Component {
                                                 </Col>
                                                 <Col style={{ justifyContent: "center", padding: 5 }}>
                                                     <Button
-                                                        onPress={() => this.deleteCleaned(value.id, "cleaning")}
+                                                        onPress={() => this.deleteCleaned("cleaning", value.id)}
                                                         style={{
                                                             alignSelf: "flex-end",
                                                             elevation: 0,
@@ -135,6 +137,7 @@ export default class CleanedJob extends React.Component {
 
     async componentDidMount() {
         try {
+            BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
             // await this.storage.Clear();
             const value = await this.storage.GetAllKeys();
             if ((value !== undefined) && value.length !== 0) {
@@ -168,5 +171,13 @@ export default class CleanedJob extends React.Component {
         } catch (e) {
 
         }
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+    }
+
+    onBackPress = () => {
+        return true;
     }
 }
