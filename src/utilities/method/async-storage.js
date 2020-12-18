@@ -60,9 +60,11 @@ export default class AsyncStorageMethod extends React.Component {
     async removedCleanedJob(key, value) {
         const object = await this.GetData(key);
         const ParseObject = JSON.parse(object);
-        if (Object.keys(ParseObject).length === 0) {
+        if (Object.keys(ParseObject).length == 0 || Object.keys(ParseObject).length == 1) {
+            console.log("EMPTY!")
             await this.RemoveValue(key);
         } else {
+            console.log("REMOVED!")
             delete ParseObject[value];
             const StringObject = JSON.stringify(ParseObject);
             await AsyncStorage.setItem(key, StringObject);
