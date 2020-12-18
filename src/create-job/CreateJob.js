@@ -20,9 +20,11 @@ import {
     Textarea
 } from 'native-base';
 
+import { BackHandler } from 'react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { Calendar } from 'react-native-calendars';
 import DialogAndroid from 'react-native-dialogs';
+import { Navigation } from 'react-native-navigation';
 
 
 import HomeFooter from '../utilities/home-footer';
@@ -104,6 +106,9 @@ export default class CreateJob extends React.Component {
                     default:
                         break;
                 }
+            } else {
+                this.state.task = "";
+                this.setState({ task: this.state.task });
             }
         });
     }
@@ -167,6 +172,33 @@ export default class CreateJob extends React.Component {
         console.log("Hour: ", this.state.hour);
         console.log("Description: ", this.state.description);
         console.log("Date: ", this.state.date);
+
+        return Navigation.push(this.props.componentId, {
+            component: {
+                name: "MadeJob",
+                passProps: {
+                    current: "Made Job",
+                    back: "CreateJob"
+                },
+                options: {
+                    topBar: {
+                        visible: false
+                    },
+                    animations: {
+                        push: {
+                            content: {
+                                alpha: {
+                                    from: 0,
+                                    to: 1,
+                                    duration: 100,
+                                }
+                            },
+                            waitForRender: true
+                        }
+                    }
+                }
+            }
+        });
     }
 
     render() {
@@ -293,5 +325,18 @@ export default class CreateJob extends React.Component {
                 <HomeFooter {...this.props} page="Create Job" />
             </Container>
         );
+    }
+
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+    }
+
+    onBackPress = () => {
+        return true;
     }
 }
