@@ -22,7 +22,7 @@ export default class HomeFooter extends React.Component {
 
     Navigate(type, back) {
         if (this.back === type) {
-            console.log("Back!")
+            console.log("Back!");
             return Navigation.pop(this.props.componentId)
         } else {
             this.enter = (type === "Cleaned Job");
