@@ -16,6 +16,7 @@ import {
     ListItem
 } from 'native-base';
 import { BackHandler } from 'react-native';
+import LottieView from 'lottie-react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import HomeFooter from '../utilities/home-footer';
 import SampleData from '..//data/sample-data';
@@ -46,39 +47,54 @@ export default class MadeJob extends React.Component {
                 }}>
                     <Title>Made Job</Title>
                 </Header>
-                <Content padder>
-                    <List>
-                        <ListItem itemDivider>
-                            <Text>Latest</Text>
-                        </ListItem>
-                        {
-                            this.state.data.map((value, key) => (
-                                <ListItem key={key}>
-                                    <Grid>
-                                        <Col style={{ justifyContent: 'flex-start' }}>
-                                            <Text style={{ alignSelf: 'flex-start' }}>
-                                                {`${value.name} Room`}
-                                            </Text>
-                                            <Text note style={{ alignSelf: 'flex-start' }}>
-                                                {`Created at ${value.date}`}
-                                            </Text>
-                                        </Col>
-                                        <Col style={{ justifyContent: 'flex-end' }}>
-                                            <Button
-                                                onPress={() => this.deleteMade(value.id)}
-                                                style={{
-                                                    alignSelf: "flex-end",
-                                                    backgroundColor: "#fcc4c3"
-                                                }}>
-                                                <Text>Delete</Text>
-                                            </Button>
-                                        </Col>
-                                    </Grid>
+                {
+                    (this.state.data.length !== 0) ? (
+                        <Content padder>
+                            <List>
+                                <ListItem itemDivider>
+                                    <Text>Latest</Text>
                                 </ListItem>
-                            ))
-                        }
-                    </List>
-                </Content>
+                                {this.state.data.map((value, key) => (
+                                    <ListItem key={key}>
+                                        <Grid>
+                                            <Col style={{ justifyContent: 'flex-start' }}>
+                                                <Text style={{ alignSelf: 'flex-start' }}>
+                                                    {`${value.name} Room`}
+                                                </Text>
+                                                <Text note style={{ alignSelf: 'flex-start' }}>
+                                                    {`Created at ${value.date}`}
+                                                </Text>
+                                            </Col>
+                                            <Col style={{ justifyContent: 'flex-end' }}>
+                                                <Button
+                                                    onPress={() => this.deleteMade(value.id)}
+                                                    style={{
+                                                        alignSelf: "flex-end",
+                                                        backgroundColor: "#fcc4c3"
+                                                    }}>
+                                                    <Text>Delete</Text>
+                                                </Button>
+                                            </Col>
+                                        </Grid>
+                                    </ListItem>
+                                ))
+                                }
+                            </List>
+                        </Content>
+                    ) : (
+                            <Grid>
+                                <Col style={{ justifyContent: "center", alignItems: "center" }}>
+                                    <LottieView
+                                        source={require('../assets/animation/lottie/8021-empty-and-lost.json')}
+                                        style={{ alignSelf: "center" }}
+                                        autoSize
+                                        autoPlay
+                                        resizeMode="center" />
+                                </Col>
+                            </Grid>
+                        )
+                }
+
                 <HomeFooter {...this.props} page="Made Job" />
             </Container>
         );
