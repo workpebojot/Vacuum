@@ -15,24 +15,13 @@ import {
     Icon,
     Badge,
     List,
-    ListItem,
-    ActionSheet,
-    Root
+    ListItem
 } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
-import DialogAndroid from 'react-native-dialogs';
-import { Navigation } from 'react-native-navigation';
 import LottieView from 'lottie-react-native';
 import HomeFooter from '../utilities/home-footer';
 import AsyncStorageMethod from './../utilities/method/async-storage';
 import SampleData from '..//data/sample-data';
-
-var BUTTONS = [
-    { text: "Delete Account", icon: "deleteuser", iconColor: "#f42ced", iconType: "AntDesign" },
-    { text: "Logout Account", icon: "logout", iconColor: "#2c8ef4", iconType: "MaterialIcons" }
-];
-var DESTRUCTIVE_INDEX = 3;
-var CANCEL_INDEX = 4;
 
 export default class Home extends React.Component {
 
@@ -46,101 +35,6 @@ export default class Home extends React.Component {
         isMadeData: [],
         isCleanedData: [],
         cleandID: []
-    }
-
-    onSetting() {
-        ActionSheet.show(
-            {
-                options: BUTTONS,
-                cancelButtonIndex: CANCEL_INDEX,
-                destructiveButtonIndex: DESTRUCTIVE_INDEX,
-                title: "Setting"
-            },
-            async (buttonIndex) => {
-                try {
-                    await this.onSettingSelected(BUTTONS[buttonIndex]);
-                } catch (e) {
-
-                }
-            }
-        )
-
-    }
-
-    async onSettingSelected(option) {
-        switch (option.text) {
-            case "Delete Account":
-                await this.deleteAccount();
-                break;
-            case "Logout Account":
-                await this.logoutAccount();
-                break;
-            default:
-                break;
-        }
-    }
-
-    async deleteAccount() {
-        const { action } = await DialogAndroid.alert("Delete Account", "Are you sure you want to delete your accout?", {
-            positiveText: "Yes",
-            negativeText: "No"
-        });
-        switch (action) {
-            case DialogAndroid.actionPositive:
-                console.log('positive!')
-                break;
-            case DialogAndroid.actionNegative:
-                console.log('negative!')
-                break;
-            case DialogAndroid.actionNeutral:
-                console.log('neutral!')
-                break;
-            case DialogAndroid.actionDismiss:
-                console.log('dismissed!')
-                break;
-        }
-    }
-
-
-    async logoutAccount() {
-        const { action } = await DialogAndroid.alert("Logout Account", "Are you sure you want to logout your accout?", {
-            positiveText: "Yes",
-            negativeText: "No"
-        });
-        switch (action) {
-            case DialogAndroid.actionPositive:
-                console.log('positive!')
-                Navigation.setRoot({
-                    root: {
-                        stack: {
-                            children: [
-                                {
-                                    component: {
-                                        name: 'OverView'
-                                    }
-                                }
-                            ],
-                            options: {
-                                animations: {
-                                    setRoot: {
-                                        waitForRender: true
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-                break;
-            case DialogAndroid.actionNegative:
-                console.log('negative!')
-                break;
-            case DialogAndroid.actionNeutral:
-                console.log('neutral!')
-                break;
-            case DialogAndroid.actionDismiss:
-                console.log('dismissed!')
-                break;
-        }
     }
 
     deleteCleaned(key, item) {
@@ -172,121 +66,116 @@ export default class Home extends React.Component {
 
     render() {
         return (
-            <Root>
-                <Container>
-                    <Header
-                        androidStatusBarColor="#05dee2"
-                        style={{
-                            backgroundColor: "#05dee2",
-                            marginTop: "7.5%",
-                            elevation: 0
-                        }}>
-                        <Left>
-                            <Button transparent>
-                                <Icon name='md-home-outline' />
-                            </Button>
-                        </Left>
-                        <Body>
-                            <Title>Home</Title>
-                        </Body>
-                        <Right>
-                            <Button transparent badge>
-                                <Badge><Text>51</Text></Badge>
-                                <Icon name='md-notifications-outline' />
-                            </Button>
-                            <Button
-                                onPress={this.onSetting.bind(this)}
-                                transparent
-                                badge>
-                                <Badge><Text>51</Text></Badge>
-                                <Icon name='md-settings-outline' />
-                            </Button>
-                        </Right>
-                    </Header>
-                    <Content padder>
-                        <List>
-                            {
-                                (this.state.isMadeData.length !== 0) ? (
-                                    <>
-                                        <ListItem itemDivider>
-                                            <Text>Made</Text>
-                                        </ListItem>
-                                        {
-                                            this.state.isMadeData.map((value, key) => (
-                                                <ListItem key={key}>
-                                                    <Grid>
-                                                        <Col style={{ justifyContent: 'flex-start' }}>
-                                                            <Text style={{ alignSelf: 'flex-start' }}>
-                                                                {`${value.name} Room`}
-                                                            </Text>
-                                                            <Text note style={{ alignSelf: 'flex-start' }}>
-                                                                {`Created at ${value.date}`}
-                                                            </Text>
-                                                        </Col>
-                                                        <Col style={{ justifyContent: 'flex-end' }}>
-                                                            <Button
-                                                                style={{
-                                                                    alignSelf: "flex-end",
-                                                                    backgroundColor: "#fcc4c3"
-                                                                }}>
-                                                                <Text>Delete</Text>
-                                                            </Button>
-                                                        </Col>
-                                                    </Grid>
-                                                </ListItem>
-                                            ))
-                                        }
-                                    </>
-                                ) : (
-                                        <ListItem itemDivider style={{ marginBottom: 5 }}>
-                                            <Text>Empty</Text>
-                                        </ListItem>
-                                    )
-                            }
-                            {
-                                (this.state.cleandID.length !== 0) && this.state.isCleanedData.length !== 0 ? (
-                                    <>
-                                        <ListItem itemDivider>
-                                            <Text>Cleaned</Text>
-                                        </ListItem>
-                                        {
-                                            this.state.isCleanedData.map((value, key) => (
-                                                <ListItem key={key}>
-                                                    <Grid>
-                                                        <Col style={{ justifyContent: 'flex-start' }}>
-                                                            <Text style={{ alignSelf: 'flex-start' }}>
-                                                                {`${value.name} Room`}
-                                                            </Text>
-                                                            <Text note style={{ alignSelf: 'flex-start' }}>
-                                                                {`Created at ${value.date}`}
-                                                            </Text>
-                                                        </Col>
-                                                        <Col style={{ justifyContent: 'flex-end' }}>
-                                                            <Button
-                                                                onPress={() => this.deleteCleaned("cleaning", value.id)}
-                                                                style={{
-                                                                    alignSelf: "flex-end",
-                                                                    backgroundColor: "#fcc4c3"
-                                                                }}>
-                                                                <Text>Delete</Text>
-                                                            </Button>
-                                                        </Col>
-                                                    </Grid>
-                                                </ListItem>
-                                            ))
-                                        }
-                                    </>
-                                ) : (
-                                        <ListItem itemDivider>
-                                            <Text>Empty</Text>
-                                        </ListItem>
-                                    )
-                            }
-                        </List>
-                    </Content>
-                    <HomeFooter {...this.props} page="Home" />
-                </Container>
-            </Root>
+            <Container>
+                <Header
+                    androidStatusBarColor="#05dee2"
+                    style={{
+                        backgroundColor: "#05dee2",
+                        marginTop: "7.5%",
+                        elevation: 0
+                    }}>
+                    <Left>
+                        <Button transparent>
+                            <Icon name='md-home-outline' />
+                        </Button>
+                    </Left>
+                    <Body>
+                        <Title>Home</Title>
+                    </Body>
+                    <Right>
+                        <Button transparent badge>
+                            <Badge><Text>51</Text></Badge>
+                            <Icon name='md-notifications-outline' />
+                        </Button>
+                        <Button transparent badge>
+                            <Badge><Text>51</Text></Badge>
+                            <Icon name='md-settings-outline' />
+                        </Button>
+                    </Right>
+                </Header>
+                <Content padder>
+                    <List>
+                        {
+                            (this.state.isMadeData.length !== 0) ? (
+                                <>
+                                    <ListItem itemDivider>
+                                        <Text>Made</Text>
+                                    </ListItem>
+                                    {
+                                        this.state.isMadeData.map((value, key) => (
+                                            <ListItem key={key}>
+                                                <Grid>
+                                                    <Col style={{ justifyContent: 'flex-start' }}>
+                                                        <Text style={{ alignSelf: 'flex-start' }}>
+                                                            {`${value.name} Room`}
+                                                        </Text>
+                                                        <Text note style={{ alignSelf: 'flex-start' }}>
+                                                            {`Created at ${value.date}`}
+                                                        </Text>
+                                                    </Col>
+                                                    <Col style={{ justifyContent: 'flex-end' }}>
+                                                        <Button
+                                                            style={{
+                                                                alignSelf: "flex-end",
+                                                                backgroundColor: "#fcc4c3"
+                                                            }}>
+                                                            <Text>Delete</Text>
+                                                        </Button>
+                                                    </Col>
+                                                </Grid>
+                                            </ListItem>
+                                        ))
+                                    }
+                                </>
+                            ) : (
+                                    <ListItem itemDivider style={{ marginBottom: 5 }}>
+                                        <Text>Empty</Text>
+                                    </ListItem>
+                                )
+                        }
+                        {
+                            (this.state.cleandID.length !== 0) && this.state.isCleanedData.length !== 0 ? (
+                                <>
+                                    <ListItem itemDivider>
+                                        <Text>Cleaned</Text>
+                                    </ListItem>
+                                    {
+                                        this.state.isCleanedData.map((value, key) => (
+                                            <ListItem key={key}>
+                                                <Grid>
+                                                    <Col style={{ justifyContent: 'flex-start' }}>
+                                                        <Text style={{ alignSelf: 'flex-start' }}>
+                                                            {`${value.name} Room`}
+                                                        </Text>
+                                                        <Text note style={{ alignSelf: 'flex-start' }}>
+                                                            {`Created at ${value.date}`}
+                                                        </Text>
+                                                    </Col>
+                                                    <Col style={{ justifyContent: 'flex-end' }}>
+                                                        <Button
+                                                            onPress={() => this.deleteCleaned("cleaning", value.id)}
+                                                            style={{
+                                                                alignSelf: "flex-end",
+                                                                backgroundColor: "#fcc4c3"
+                                                            }}>
+                                                            <Text>Delete</Text>
+                                                        </Button>
+                                                    </Col>
+                                                </Grid>
+                                            </ListItem>
+                                        ))
+                                    }
+                                </>
+                            ) : (
+                                    <ListItem itemDivider>
+                                        <Text>Empty</Text>
+                                    </ListItem>
+                                )
+                        }
+                    </List>
+                </Content>
+                <HomeFooter {...this.props} page="Home" />
+            </Container>
         );
     }
 
