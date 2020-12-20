@@ -1,6 +1,5 @@
 
 import * as React from 'react';
-import { Navigation } from 'react-native-navigation';
 import {
     Container,
     Header,
@@ -21,6 +20,7 @@ import {
     Footer,
     FooterTab
 } from 'native-base';
+import { Navigation } from 'react-native-navigation';
 import DialogAndroid from 'react-native-dialogs';
 import { Image, TouchableOpacity, Pressable } from 'react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
