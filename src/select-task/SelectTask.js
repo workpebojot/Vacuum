@@ -83,9 +83,14 @@ export default class SelectTask extends React.Component {
                                 </Col>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                onPress={() => {
-                                    console.log("Create Job");
-                                }}
+                                onPress={() => Navigation.push(this.props.componentId, {
+                                    component: {
+                                        name: "CreateJob",
+                                        passProps: {
+                                            props: this.props
+                                        }
+                                    }
+                                })}
                                 style={{
                                     flexDirection: "column",
                                     flex: 1,
