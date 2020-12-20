@@ -190,7 +190,16 @@ export default class Home extends React.Component {
                             <Title>Home</Title>
                         </Body>
                         <Right>
-                            <Button transparent badge>
+                            <Button
+                                onPress={
+                                    () => Navigation.push(this.props.componentId, {
+                                        component: {
+                                            name: "Status"
+                                        }
+                                    })
+                                }
+                                transparent
+                                badge>
                                 <Badge><Text>51</Text></Badge>
                                 <Icon name='md-notifications-outline' />
                             </Button>

@@ -12,6 +12,7 @@ import FindJob from './src/find-job/FindJob';
 import Home from './src/home/Home';
 import CreateJob from './src/create-job/CreateJob';
 import MadeJob from './src/made-job/MadeJob';
+import Status from './src/status/status';
 
 Navigation.registerComponent('OverView', () => OverView);
 Navigation.registerComponent('SignUp', () => SignUp);
@@ -23,6 +24,7 @@ Navigation.registerComponent('CleanedJob', () => CleanedJob);
 Navigation.registerComponent('Home', () => Home);
 Navigation.registerComponent('CreateJob', () => CreateJob);
 Navigation.registerComponent('MadeJob', () => MadeJob);
+Navigation.registerComponent('Status', () => Status);
 
 Navigation.events().registerAppLaunchedListener(async () => {
     Navigation.setRoot({
