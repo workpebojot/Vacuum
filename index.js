@@ -1,39 +1,32 @@
-/**
- * @format
- */
-import { Navigation } from 'react-native-navigation';
-import OverView from './src/overview/OverView';
-import SignUp from './src/signup/SignUp';
-import Login from './src/login/Login';
-import SetupProfile from './src/setup-profile/SetupProfile';
-import SelectTask from './src/select-task/SelectTask';
-import CleanedJob from './src/cleaned-job/CleanedJob';
-import FindJob from './src/find-job/FindJob';
-import Home from './src/home/Home';
-import CreateJob from './src/create-job/CreateJob';
-import MadeJob from './src/made-job/MadeJob';
-import Status from './src/status/status';
+import * as Library from './src/abstract-library.js';
+import * as Page from './src/abstract-page.js';
 
-Navigation.registerComponent('OverView', () => OverView);
-Navigation.registerComponent('SignUp', () => SignUp);
-Navigation.registerComponent('Login', () => Login);
-Navigation.registerComponent('SetupProfile', () => SetupProfile);
-Navigation.registerComponent('SelectTask', () => SelectTask);
-Navigation.registerComponent('FindJob', () => FindJob);
-Navigation.registerComponent('CleanedJob', () => CleanedJob);
-Navigation.registerComponent('Home', () => Home);
-Navigation.registerComponent('CreateJob', () => CreateJob);
-Navigation.registerComponent('MadeJob', () => MadeJob);
-Navigation.registerComponent('Status', () => Status);
+// Register Component
+function Register(page, component) {
+    Library.Nav.registerComponent(page, component);
+}
 
-Navigation.events().registerAppLaunchedListener(async () => {
-    Navigation.setRoot({
+Register('Overview', () => Page.Overview);
+Register('SignUp', () => Page.SignUp);
+Register('Login', () => Page.Login);
+Register('SetupProfile', () => Page.SetupProfile);
+Register('SelectTask', () => Page.SelectTask);
+Register('FindJob', () => Page.FindJob);
+Register('CleanedJob', () => Page.CleanedJob);
+Register('Home', () => Page.Home);
+Register('CreateJob', () => Page.CreateJob);
+Register('MadeJob', () => Page.MadeJob);
+Register('Status', () => Page.Status);
+
+// Listen intinial events (by default, overview page is shown first)
+Library.Nav.events().registerAppLaunchedListener(async () => {
+    Library.Nav.setRoot({
         root: {
             stack: {
                 children: [
                     {
                         component: {
-                            name: 'OverView'
+                            name: 'Overview'
                         }
                     }
                 ]
@@ -42,7 +35,9 @@ Navigation.events().registerAppLaunchedListener(async () => {
     });
 });
 
-Navigation.setDefaultOptions({
+
+// Set default option for "top bar", "status bar", and "animation"
+Library.Nav.setDefaultOptions({
     topBar: {
         visible: false
     },

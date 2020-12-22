@@ -1,2 +1,0 @@
-1. Decorate Footer Navigation for Dynamic Navigation
-2. Find Job and Create Job search
