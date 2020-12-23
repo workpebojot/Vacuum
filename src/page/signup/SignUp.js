@@ -224,9 +224,7 @@ export default class SignUp extends React.Component {
                         and the second is data processing, while we talk
                         about privacy, as I said. This is the details I
                         get from you in the data collection: <b>Name</b>, <b>Location</b>,
-                        <b>Email</b> and <b>Phone Number</b>. Instead of paying online, 
-                        you pay locally. We have paid membership. But I do not 
-                        force you to pay unless the system requires it.
+                        <b>Email</b> and <b>Phone Number.</b>
                         <br><br>
                         When it comes to data collection, we're going to
                         talk about how it's going to be processed, I'm going
@@ -243,7 +241,7 @@ export default class SignUp extends React.Component {
                         For authentication, your email and phone number
                         are included. You can pretend on the internet,
                         but because phone authentication was invented,
-                        we will know that you are the rightful one. In 
+                        we will know that you are the rightful one, but sometimes phone number is not enough. In 
                         the other hand, email can also be used to check
                         identities, but it can also be used as a newsletter
                         where you can collect news about the status of the
@@ -279,7 +277,7 @@ export default class SignUp extends React.Component {
         await Library.DialogAndroid.alert("",
             `<b>Why do we need an email from you?</b> Your email may be either verified or 
             non-verified when you register your email. If you want your email to be verified later, 
-            we will use it for email notification. The verified email tells us that it is not a fake account.`,
+            we will use it for email notification.`,
             {
                 contentIsHtml: true
             }
