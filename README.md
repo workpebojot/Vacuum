@@ -1,5 +1,5 @@
 # The Vacuum Project
-[![Build Status](https://travis-ci.com/workpebojot/Vacuum.svg?token=pPU1uhUU9SnFaiq4DHLq&branch=master)](https://travis-ci.com/workpebojot/Vacuum) [![codecov](https://codecov.io/gh/workpebojot/Vacuum/branch/master/graph/badge.svg?token=BH3L6VJIME)](https://codecov.io/gh/workpebojot/Vacuum) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![Build Status](https://travis-ci.com/workpebojot/Vacuum.svg?branch=master)](https://travis-ci.com/workpebojot/Vacuum) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 The proposed **Vacuum Cleaner** project is to develop the Household Chores Service Platform for Filipino where they can deliver jobs and services from or to those who have jobs or have lost their job due to pandemic. The Android program allows fellow Filipino to provide work and services.
 
