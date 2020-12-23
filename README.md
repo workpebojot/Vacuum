@@ -1,21 +1,21 @@
 # The Vacuum Project
 [![Build Status](https://travis-ci.com/workpebojot/Vacuum.svg?branch=master)](https://travis-ci.com/workpebojot/Vacuum) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-The proposed **Vacuum Cleaner** project is to develop the Household Chores Service Platform for Filipino where they can deliver jobs and services from or to those who have jobs or have lost their job due to pandemic. The Android program allows fellow Filipino to provide work and services.
+The proposed **Vacuum Cleaner** project is to develop the Household Chores Service Platform for everyone where they can deliver jobs and services from or to those who have jobs or have lost their job due to pandemic. The Android program allows everyone to provide work and services.
 
-The pandemic was widely disruptive to the economy of the Philippines, with most sectors and workforces adversely affected. The Philippine Institute of Development Studies projects that 7.5 million Filipinos lost their jobs due to the pandemic, while 1.5 million are sliding back into poverty. The research body also says that as much as 75 percent of the Philippine economy halted due at the height of the community quarantine measures.
+The pandemic was widely disruptive to the economy, with most sectors and workforces adversely affected. The COVID-19 pandemic has had far-reaching economic consequences beyond the spread of the disease itself and efforts to quarantine it. As the SARS-CoV-2 virus has spread around the globe, concerns have shifted from supply-side manufacturing issues to decreased business in the services sector. The pandemic caused the largest global recession in history, with more than a third of the global population at the time being placed on lockdown.
 
-## Motivation
+## Motivation (Origination)
 ---
-The **Vacuum Cleaner** project is searching for a way to solve the Philippine crisis by supplying the Filipinos with the opportunity to provide jobs and services. The Vacuum Cleaner for Android Platform can build employment and services for the Philippines and encourage close cooperation.
+The **Vacuum Cleaner** project is searching for a way to solve the economic crisis by supplying everyone with the opportunity to provide jobs and services. The Vacuum Cleaner for Android Platform can build employment and services and encourage close cooperation.
 
--	To foster Filipino nationalism among the Filipino as being responsible for its own resources
--	Support the unemployed Filipino to reduce the transportation cost of seeking a career
+-	To foster nationalism among the everyone as being responsible for its own resources
+-	Support the unemployed people to reduce the transportation cost of seeking a career
 -	Include the correct searched job
--	Organize and combine the different workers and jobless Filipino in terms of geographical position
--	Support the health of Filipino employees
--	Aid for displaced Filipino employees and their families
--	Promote cooperation between Filipino workers
+-	Organize and combine the different workers and jobless people in terms of geographical position
+-	Support the health of employees
+-	Aid for displaced employees and their families
+-	Promote cooperation between workers
 
 ## Screenshot
 ---
