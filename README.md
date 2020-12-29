@@ -1,3 +1,4 @@
+![Vacuum](https://user-images.githubusercontent.com/38276345/103262027-9ec1cb00-49de-11eb-83d7-ff69ae05131e.png)
 # The Vacuum Project
 [![Build Status](https://travis-ci.com/workpebojot/Vacuum.svg?branch=master)](https://travis-ci.com/workpebojot/Vacuum) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
